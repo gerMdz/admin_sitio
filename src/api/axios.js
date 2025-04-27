@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'https://127.0.0.1:8000/api', // O tu base real
+    baseURL: import.meta.env.VITE_API_PROXY+'/api' || 'https://127.0.0.1:8000/api', // O tu base real
 });
 
 // Interceptor para meter el token en cada request

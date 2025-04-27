@@ -11,6 +11,7 @@ import Gender from '../views/Gender.vue';
 import Interest from '../views/Interest.vue';
 import LifeStage from '../views/LifeStage.vue';
 import Needs from '../views/Needs.vue';
+import Services from "../views/Services.vue";
 
 import Layout from '../layouts/Layout.vue';
 
@@ -32,8 +33,7 @@ const routes = [
             {path: 'interests', name: 'Interest', component: Interest, meta: {requiresAuth: true}},
             {path: 'lifestages', name: 'LifeStage', component: LifeStage, meta: {requiresAuth: true}},
             {path: 'needs', name: 'Needs', component: Needs, meta: {requiresAuth: true}},
-
-
+            {path: 'services', name: 'Services', component: Services, meta: {requiresAuth: true}},
         ],
     },
 ];
