@@ -3,7 +3,7 @@
     <!-- Área superior: usuario y logout -->
     <div class="flex flex-column gap-2 mb-6">
       <div class="text-lg font-bold mb-2">Admin</div>
-<!--      <Button label="Cerrar Sesión" icon="pi pi-sign-out" class="p-button-danger w-full" @click="logout" />-->
+      <!--      <Button label="Cerrar Sesión" icon="pi pi-sign-out" class="p-button-danger w-full" @click="logout" />-->
     </div>
 
     <!-- Menú principal -->
@@ -33,21 +33,21 @@
         </router-link>
       </div>
       <div class="mt-4">
-        <Button label="Cerrar Sesión" icon="pi pi-sign-out" class="p-button-danger w-full" @click="logout" />
+        <Button label="Cerrar Sesión" icon="pi pi-sign-out" class="p-button-danger w-full" @click="logout"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { useRoute } from 'vue-router';
-import { useLogout } from '@/composables/logout';
+import {useRoute} from 'vue-router';
+import {useLogout} from '@/composables/logout';
 import Button from 'primevue/button';
 
 export default {
-  components: { Button },
+  components: {Button},
   setup() {
-    const { logout } = useLogout();
+    const {logout} = useLogout();
     const route = useRoute();
 
     const isActive = (path) => {
@@ -55,17 +55,19 @@ export default {
     };
 
     const mainLinks = [
-      { label: 'Inicio', icon: 'pi pi-home', to: '/panel' },
-      { label: 'Usuarios', icon: 'pi pi-users', to: '/usuarios' },
-      { label: 'Roles', icon: 'pi pi-id-card', to: '/roles' },
+      {label: 'Inicio', icon: 'pi pi-home', to: '/panel'},
+      {label: 'Usuarios', icon: 'pi pi-users', to: '/usuarios'},
+      {label: 'Roles', icon: 'pi pi-id-card', to: '/roles'},
     ];
 
     const catalogLinks = [
-      { label: 'Estados Civiles', icon: 'pi pi-user-plus', to: '/civil-states' },
-      // Agregar más catálogos aquí
+      {label: 'Estados Civiles', icon: 'pi pi-user-plus', to: '/civil-states'},
+      {label: 'Disfrutes', icon: 'pi pi-face-smile', to: '/enjoys', routerLink: true},
+      {label: 'Experiencias Completadas', icon: 'pi pi-star', to: '/experiences', routerLink: true},
+      {label: '¿Con quién vives?', icon: 'pi pi-users', to: '/family', routerLink: true,}
     ];
 
-    return { mainLinks, catalogLinks, logout, isActive };
+    return {mainLinks, catalogLinks, logout, isActive};
   },
 };
 </script>
