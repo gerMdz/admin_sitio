@@ -10,6 +10,7 @@ import Family from '../views/Family.vue';
 import Gender from '../views/Gender.vue';
 import Interest from '../views/Interest.vue';
 import LifeStage from '../views/LifeStage.vue';
+import Needs from '../views/Needs.vue';
 
 import Layout from '../layouts/Layout.vue';
 
@@ -30,6 +31,8 @@ const routes = [
             {path: 'gender', name: 'Gender', component: Gender, meta: {requiresAuth: true}},
             {path: 'interests', name: 'Interest', component: Interest, meta: {requiresAuth: true}},
             {path: 'lifestages', name: 'LifeStage', component: LifeStage, meta: {requiresAuth: true}},
+            {path: 'needs', name: 'Needs', component: Needs, meta: {requiresAuth: true}},
+
 
         ],
     },

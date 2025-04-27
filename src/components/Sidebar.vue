@@ -67,7 +67,8 @@ export default {
       {label: '¿Con quién vives?', icon: 'pi pi-users', to: '/family', routerLink: true,},
       {label: 'Sexo', icon: 'pi pi-user', to: '/gender', routerLink: true,},
       {label: 'Áreas de Interés', icon: 'pi pi-heart', to: '/interests', routerLink: true,},
-      {label: 'Etapas de Vida', icon: 'pi pi-star', to: '/lifestages', routerLink: true,}
+      {label: 'Etapas de Vida', icon: 'pi pi-star', to: '/lifestages', routerLink: true,},
+      {label: 'Necesidades', icon: 'pi pi-list', to: '/needs', routerLink: true},
 
     ];
 
