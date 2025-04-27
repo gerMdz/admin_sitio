@@ -8,7 +8,7 @@ import Enjoys from '../views/Enjoys.vue';
 import Experiences from '../views/Experiences.vue';
 import Family from '../views/Family.vue';
 import Gender from '../views/Gender.vue';
-
+import Interest from '../views/Interest.vue';
 
 import Layout from '../layouts/Layout.vue';
 
@@ -27,6 +27,7 @@ const routes = [
             {path: 'experiences', name: 'Experiences', component: Experiences, meta: {requiresAuth: true}},
             {path: 'family', name: 'Family', component: Family, meta: {requiresAuth: true}},
             {path: 'gender', name: 'Gender', component: Gender, meta: {requiresAuth: true}},
+            {path: 'interests', name: 'Interest', component: Interest, meta: {requiresAuth: true}},
         ],
     },
 ];
