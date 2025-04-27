@@ -64,7 +64,9 @@ export default {
       {label: 'Estados Civiles', icon: 'pi pi-user-plus', to: '/civil-states'},
       {label: 'Disfrutes', icon: 'pi pi-face-smile', to: '/enjoys', routerLink: true},
       {label: 'Experiencias Completadas', icon: 'pi pi-star', to: '/experiences', routerLink: true},
-      {label: '¿Con quién vives?', icon: 'pi pi-users', to: '/family', routerLink: true,}
+      {label: '¿Con quién vives?', icon: 'pi pi-users', to: '/family', routerLink: true,},
+      {label: 'Sexo', icon: 'pi pi-user', to: '/gender', routerLink: true,}
+
     ];
 
     return {mainLinks, catalogLinks, logout, isActive};
