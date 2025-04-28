@@ -58,13 +58,13 @@ export default {
     };
 
     const mainLinks = [
-      {label: 'Inicio', icon: 'pi pi-home', to: '/panel'},
-      {label: 'Usuarios', icon: 'pi pi-users', to: '/usuarios'},
-      {label: 'Roles', icon: 'pi pi-id-card', to: '/roles'},
+      {label: 'Inicio', icon: 'pi pi-home', to: '/panel', routerLink: true},
+      {label: 'Usuarios', icon: 'pi pi-users', to: '/usuarios', routerLink: true},
+      {label: 'Roles', icon: 'pi pi-id-card', to: '/roles', routerLink: true},
     ];
 
     const catalogLinks = [
-      {label: 'Estados Civiles', icon: 'pi pi-user-plus', to: '/civil-states'},
+      {label: 'Estados Civiles', icon: 'pi pi-user-plus', to: '/civil-states', routerLink: true},
       {label: 'Disfrutes', icon: 'pi pi-face-smile', to: '/enjoys', routerLink: true},
       {label: 'Experiencias Completadas', icon: 'pi pi-star', to: '/experiences', routerLink: true},
       {label: '¿Con quién vives?', icon: 'pi pi-users', to: '/family', routerLink: true,},
@@ -73,7 +73,9 @@ export default {
       {label: 'Etapas de Vida', icon: 'pi pi-star', to: '/lifestages', routerLink: true,},
       {label: 'Necesidades', icon: 'pi pi-list', to: '/needs', routerLink: true},
       {label: '¿Has utilizado alguno de estos servicios?', icon: 'pi pi-briefcase', to: '/services', routerLink: true},
-      {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media'}
+      {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media', routerLink: true},
+      {label: 'Voluntariado', icon: 'pi pi-users', to: '/voluntary', routerLink: true},
+
     ];
 
     return {mainLinks, catalogLinks, logout, isActive};

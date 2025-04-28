@@ -30,9 +30,12 @@
           <Button icon="pi pi-pencil" class="p-button-text p-button-sm" @click="editarServicio(slotProps.data)"/>
           <Button icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger"
                   @click="eliminarServicio(slotProps.data)"/>
+          <Button icon="pi pi-eye" class="p-button-text p-button-sm" @click="verDetallesServicio(slotProps.data)"/>
         </template>
       </Column>
     </DataTable>
+    <ModalVerDetalles :visible="modalVisible" :datos="datosDetalles" @update:visible="modalVisible = $event"/>
+
 
     <Dialog v-model:visible="dialogVisible" modal header="Servicio" :style="{ width: '400px' }">
       <div class="p-fluid">
@@ -64,6 +67,7 @@ import Button from 'primevue/button';
 import InputSwitch from 'primevue/inputswitch';
 import ConfirmDialog from 'primevue/confirmdialog';
 import {useConfirm} from 'primevue/useconfirm';
+import ModalVerDetalles from '@/components/ModalVerDetalles.vue';
 
 
 export default {
@@ -74,7 +78,8 @@ export default {
     InputText,
     Button,
     InputSwitch,
-    ConfirmDialog
+    ConfirmDialog,
+    ModalVerDetalles,
   },
   setup() {
     const servicios = ref([]);
@@ -83,10 +88,20 @@ export default {
     const verTodos = ref(false);
     const store = useStore();
     const toast = useToast();
-
     const auditId = store.state.user?.auditId || null;
-
     const serviciosFiltrados = useFiltrarActivos(servicios, verTodos);
+    const modalVisible = ref(false);
+    const datosDetalles = ref(null);
+
+    const verDetallesServicio = async (service) => {
+      try {
+        const response = await api.get(`/services/${service.id}`);
+        datosDetalles.value = response.data;
+        modalVisible.value = true;
+      } catch (error) {
+        console.error('Error cargando detalles', error);
+      }
+    };
 
     const cargarServicios = async () => {
       try {
@@ -189,6 +204,9 @@ export default {
       guardarServicio,
       eliminarServicio,
       confirm,
+      modalVisible,
+      datosDetalles,
+      verDetallesServicio,
     };
   },
 };
