@@ -1,21 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import Login from '../views/Login.vue';
-import Panel from '../views/Panel.vue';
-import Usuarios from '../views/Usuarios.vue';
-import Roles from '../views/Roles.vue';
-import CivilStates from '../views/CivilStates.vue';
-import Enjoys from '../views/Enjoys.vue';
-import Experiences from '../views/Experiences.vue';
-import Family from '../views/Family.vue';
-import Gender from '../views/Gender.vue';
-import Interest from '../views/Interest.vue';
-import LifeStage from '../views/LifeStage.vue';
-import Needs from '../views/Needs.vue';
-import Services from "../views/Services.vue";
-
 import Layout from '../layouts/Layout.vue';
-import SocialMedia from "@/views/SocialMedia.vue";
-import Voluntary from "@/views/Voluntary.vue";
 
 const routes = [
     {path: '/', redirect: '/login'},
@@ -24,20 +9,76 @@ const routes = [
         path: '/',
         component: Layout,
         children: [
-            {path: '/panel', name: 'Panel', component: Panel, meta: {requiresAuth: true}},
-            {path: '/usuarios', name: 'Usuarios', component: Usuarios, meta: {requiresAuth: true}},
-            {path: '/roles', name: 'Roles', component: Roles, meta: {requiresAuth: true}},
-            {path: '/civil-states', name: 'CivilStates', component: CivilStates, meta: {requiresAuth: true}},
-            {path: 'enjoys', name: 'Enjoys', component: Enjoys, meta: {requiresAuth: true}},
-            {path: 'experiences', name: 'Experiences', component: Experiences, meta: {requiresAuth: true}},
-            {path: 'family', name: 'Family', component: Family, meta: {requiresAuth: true}},
-            {path: 'gender', name: 'Gender', component: Gender, meta: {requiresAuth: true}},
-            {path: 'interests', name: 'Interest', component: Interest, meta: {requiresAuth: true}},
-            {path: 'lifestages', name: 'LifeStage', component: LifeStage, meta: {requiresAuth: true}},
-            {path: 'needs', name: 'Needs', component: Needs, meta: {requiresAuth: true}},
-            {path: 'services', name: 'Services', component: Services, meta: {requiresAuth: true}},
-            {path: '/social-media', name: 'SocialMedia', component: SocialMedia, meta: {requiresAuth: true}},
-            {path: '/voluntary', name: 'Voluntary', component: Voluntary, meta: {requiresAuth: true}}
+            {path: '/panel', name: 'Panel', component: () => import('../views/Panel.vue'), meta: {requiresAuth: true}},
+            {
+                path: '/usuarios',
+                name: 'Usuarios',
+                component: () => import('../views/Usuarios.vue'),
+                meta: {requiresAuth: true}
+            },
+            {path: '/roles', name: 'Roles', component: () => import('../views/Roles.vue'), meta: {requiresAuth: true}},
+            {
+                path: '/civil-states',
+                name: 'CivilStates',
+                component: () => import('../views/CivilStates.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/enjoys',
+                name: 'Enjoys',
+                component: () => import('../views/Enjoys.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/experiences',
+                name: 'Experiences',
+                component: () => import('../views/Experiences.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/family',
+                name: 'Family',
+                component: () => import('../views/Family.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/gender',
+                name: 'Gender',
+                component: () => import('../views/Gender.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/interests',
+                name: 'Interest',
+                component: () => import('../views/Interest.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/lifestages',
+                name: 'LifeStage',
+                component: () => import('../views/LifeStage.vue'),
+                meta: {requiresAuth: true}
+            },
+            {path: '/needs', name: 'Needs', component: () => import('../views/Needs.vue'), meta: {requiresAuth: true}},
+            {
+                path: '/services',
+                name: 'Services',
+                component: () => import('../views/Services.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/social-media',
+                name: 'SocialMedia',
+                component: () => import('../views/SocialMedia.vue'),
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/voluntary',
+                name: 'Voluntary',
+                component: () => import('../views/Voluntary.vue'),
+                meta: {requiresAuth: true}
+            },
+
 
         ],
     },
