@@ -14,6 +14,7 @@
           :to="item.to"
           class="link p-2 rounded-lg hover:bg-gray-100 flex items-center gap-2"
           :class="{ 'bg-gray-200 font-bold': isActive(item.to) }"
+          @click="$emit('link-click')"
       >
         <i :class="item.icon"></i>
         <span>{{ item.label }}</span>
@@ -27,6 +28,7 @@
             :to="item.to"
             class="link p-2 rounded-lg hover:bg-gray-100 flex items-center gap-2"
             :class="{ 'bg-gray-200 font-bold': isActive(item.to) }"
+            @click="$emit('link-click')"
         >
           <i :class="item.icon"></i>
           <span>{{ item.label }}</span>
@@ -45,6 +47,7 @@ import {useLogout} from '@/composables/logout';
 import Button from 'primevue/button';
 
 export default {
+  emits: ['link-click'],
   components: {Button},
   setup() {
     const {logout} = useLogout();
@@ -81,6 +84,9 @@ export default {
 <style scoped>
 .sidebar {
   background-color: #ffffff;
+}
+.p-sidebar {
+  z-index: 1100 !important;
 }
 
 .link {

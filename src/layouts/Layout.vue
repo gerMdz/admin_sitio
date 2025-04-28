@@ -1,8 +1,20 @@
 <template>
   <div class="layout flex min-h-screen relative">
-    <!-- Sidebar -->
-    <Sidebar v-model:visible="sidebarVisible" :modal="isMobile" position="left">
-      <!-- Menú lateral aquí -->
+
+    <!-- Sidebar Desktop Fijo -->
+    <div v-if="!isMobile" class="sidebar-desktop flex flex-column p-3 shadow-2">
+      <SidebarMenu />
+    </div>
+
+    <!-- Sidebar Mobile Modal -->
+    <Sidebar
+        v-else
+        v-model:visible="sidebarVisible"
+        modal
+        dismissable
+        position="left"
+    >
+      <SidebarMenu @link-click="handleLinkClick" />
     </Sidebar>
 
     <!-- Área principal -->
@@ -10,7 +22,12 @@
       <Menubar class="p-3 shadow-2 flex justify-between">
         <template #start>
           <div class="flex items-center gap-2">
-            <Button v-if="isMobile" icon="pi pi-bars" @click="sidebarVisible = !sidebarVisible" class="p-button-text" />
+            <Button
+                v-if="isMobile"
+                icon="pi pi-bars"
+                class="p-button-text"
+                @click="toggleSidebar"
+            />
             <span class="text-2xl font-bold">Admin Panel</span>
           </div>
         </template>
@@ -28,22 +45,23 @@
       </div>
     </div>
 
-    <!-- Configurator -->
     <Configurator v-if="showConfigurator" @close="showConfigurator = false" />
   </div>
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar.vue';
+import Sidebar from 'primevue/sidebar';
+import SidebarMenu from '@/components/Sidebar.vue'; // Sidebar real
 import Configurator from '@/components/Configurator.vue';
 import Menubar from 'primevue/menubar';
 import Button from 'primevue/button';
 import { useLogout } from '@/composables/logout';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 export default {
   components: {
     Sidebar,
+    SidebarMenu,
     Menubar,
     Button,
     Configurator
@@ -51,26 +69,20 @@ export default {
   setup() {
     const { logout } = useLogout();
     const showConfigurator = ref(false);
-    const sidebarVisible = ref(true);
+    const sidebarVisible = ref(false);
     const isMobile = ref(false);
 
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        isMobile.value = true;
-        sidebarVisible.value = false; // <-- FORZAR cerrado en mobile
-      } else {
-        isMobile.value = false;
-        sidebarVisible.value = true; // <-- FORZAR abierto en desktop
-      }
+      isMobile.value = window.innerWidth < 768;
+      sidebarVisible.value = false; // Al cambiar de tamaño, sidebar modal cerrado por defecto
     };
-
 
     onMounted(() => {
       handleResize();
       window.addEventListener('resize', handleResize);
     });
 
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
       window.removeEventListener('resize', handleResize);
     });
 
@@ -78,7 +90,25 @@ export default {
       showConfigurator.value = !showConfigurator.value;
     };
 
-    return { logout, showConfigurator, toggleConfigurator, sidebarVisible, isMobile };
+    const toggleSidebar = () => {
+      sidebarVisible.value = !sidebarVisible.value;
+    };
+
+    const handleLinkClick = () => {
+      if (isMobile.value) {
+        sidebarVisible.value = false;
+      }
+    };
+
+    return {
+      logout,
+      showConfigurator,
+      toggleConfigurator,
+      sidebarVisible,
+      isMobile,
+      toggleSidebar,
+      handleLinkClick
+    };
   },
 };
 </script>
@@ -86,5 +116,16 @@ export default {
 <style scoped>
 .layout {
   background-color: #f8f9fa;
+}
+
+/* Sidebar Desktop Fijo */
+.sidebar-desktop {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+.p-sidebar {
+  z-index: 1100 !important;
 }
 </style>
