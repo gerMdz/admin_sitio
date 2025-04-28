@@ -72,8 +72,8 @@ export default {
       {label: 'Áreas de Interés', icon: 'pi pi-heart', to: '/interests', routerLink: true,},
       {label: 'Etapas de Vida', icon: 'pi pi-star', to: '/lifestages', routerLink: true,},
       {label: 'Necesidades', icon: 'pi pi-list', to: '/needs', routerLink: true},
-      {label: '¿Has utilizado alguno de estos servicios?', icon: 'pi pi-briefcase', to: '/services', routerLink: true}, // <-- nuevo
-
+      {label: '¿Has utilizado alguno de estos servicios?', icon: 'pi pi-briefcase', to: '/services', routerLink: true},
+      {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media'}
     ];
 
     return {mainLinks, catalogLinks, logout, isActive};
@@ -85,6 +85,7 @@ export default {
 .sidebar {
   background-color: #ffffff;
 }
+
 .p-sidebar {
   z-index: 1100 !important;
 }

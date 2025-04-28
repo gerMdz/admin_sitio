@@ -14,6 +14,7 @@ import Needs from '../views/Needs.vue';
 import Services from "../views/Services.vue";
 
 import Layout from '../layouts/Layout.vue';
+import SocialMedia from "@/views/SocialMedia.vue";
 
 const routes = [
     {path: '/', redirect: '/login'},
@@ -34,6 +35,8 @@ const routes = [
             {path: 'lifestages', name: 'LifeStage', component: LifeStage, meta: {requiresAuth: true}},
             {path: 'needs', name: 'Needs', component: Needs, meta: {requiresAuth: true}},
             {path: 'services', name: 'Services', component: Services, meta: {requiresAuth: true}},
+            { path: '/social-media', name: 'SocialMedia', component: SocialMedia, meta: { requiresAuth: true } }
+
         ],
     },
 ];

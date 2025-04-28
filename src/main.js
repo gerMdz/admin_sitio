@@ -17,20 +17,12 @@ import 'primeflex/primeflex.css';
 import '@/assets/sakai/styles.scss';
 import Toast from 'primevue/toast';
 
-// import 'primevue/resources/themes/sakai/theme.css';
-
-
-
-
 import ConfirmationService from 'primevue/confirmationservice';
-
-
 
 const app = createApp(App);
 
 app.use(router);
 app.use(store);
-
 app.use(PrimeVue, {
     theme: {
         preset: Aura,
@@ -41,7 +33,6 @@ app.use(PrimeVue, {
 });
 app.use(ToastService);
 app.use(DialogService);
-
 app.component('Button', Button);
 app.component('InputText', InputText);
 app.component('Password', Password);
