@@ -105,7 +105,7 @@ export default {
       {label: 'Necesidades', icon: 'pi pi-list', to: '/needs', routerLink: true},
       {label: '¿Has utilizado alguno de estos servicios?', icon: 'pi pi-briefcase', to: '/services', routerLink: true},
       {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media', routerLink: true},
-      {label: 'Voluntariado', icon: 'pi pi-users', to: '/voluntary', routerLink: true},
+      {label: 'Voluntariados', icon: 'pi pi-users', to: '/voluntary', routerLink: true},
     ];
 
     const membersLinks = [
