@@ -259,6 +259,8 @@ export default {
 
     const formatearFecha = (iso) => {
       if (!iso) return '';
+      if (iso === '-0001-11-30') return '';
+      console.log(iso)
       const [year, month, day] = iso.split('T')[0].split('-');
       return `${day}/${month}/${year}`;
     };
