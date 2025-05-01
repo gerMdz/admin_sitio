@@ -1,10 +1,5 @@
 <template>
-  <ConfirmDialog
-      :draggable="false"
-      :closable="false"
-      :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
-      class="p-confirm-dialog-custom"
-  />
+
 
   <div class="card">
     <div class="flex justify-content-between align-items-center mb-3">
@@ -136,7 +131,7 @@ import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
 import Button from 'primevue/button';
 import InputSwitch from 'primevue/inputswitch';
-import ConfirmDialog from 'primevue/confirmdialog';
+
 import {useConfirm} from 'primevue/useconfirm';
 import ModalVerDetallesMember from '@/components/ModalVerDetallesMember.vue';
 
@@ -148,7 +143,7 @@ export default {
     InputText,
     Button,
     InputSwitch,
-    ConfirmDialog,
+
     ModalVerDetallesMember,
   },
   setup() {

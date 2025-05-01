@@ -16,8 +16,9 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import '@/assets/sakai/styles.scss';
 import Toast from 'primevue/toast';
-
+import Dialog from 'primevue/dialog';
 import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmDialog from 'primevue/confirmdialog';
 
 const app = createApp(App);
 
@@ -33,10 +34,13 @@ app.use(PrimeVue, {
 });
 app.use(ToastService);
 app.use(DialogService);
+app.use(ConfirmationService);
+
 app.component('Button', Button);
 app.component('InputText', InputText);
 app.component('Password', Password);
-app.use(ConfirmationService);
+app.component('Dialog', Dialog);
 app.component('Toast', Toast);
+app.component('ConfirmDialog', ConfirmDialog);
 
 app.mount('#app');

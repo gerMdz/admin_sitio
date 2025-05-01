@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import Login from '../views/Login.vue';
 import Layout from '../layouts/Layout.vue';
+import MemberExperiences from "@/views/MemberExperiences.vue";
 
 const routes = [
     {path: '/', redirect: '/login'},
@@ -82,9 +83,14 @@ const routes = [
                 path: '/members',
                 name: 'Members',
                 component: () => import('@/views/Members.vue'),
-                meta: { requiresAuth: true }
-            }
-
+                meta: {requiresAuth: true}
+            },
+            {
+                path: '/member-experiences',
+                name: 'MemberExperiences',
+                component: MemberExperiences,
+                meta: {requiresAuth: true}
+            },
 
 
         ],

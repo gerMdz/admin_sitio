@@ -1,11 +1,20 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView} from 'vue-router'
 
 </script>
 
 <template>
-  <Toast />
-  <router-view />
+  <Toast/>
+  <ConfirmDialog
+      :draggable="false"
+      :closable="false"
+      :dismissableMask="true"
+      appendTo="body"
+      :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
+      class="p-confirm-dialog-custom"
+  />
+
+  <router-view/>
 </template>
 
 <style scoped>

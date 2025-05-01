@@ -109,7 +109,8 @@ export default {
     ];
 
     const membersLinks = [
-      {label: 'Miembros', icon: 'pi pi-id-card', to: '/members', routerLink: true}
+      {label: 'Miembros', icon: 'pi pi-id-card', to: '/members', routerLink: true},
+      {label: 'Experiencias por Miembro', icon: 'pi pi-users', to: '/member-experiences', routerLink: true},
     ];
 
     return {mainLinks, catalogLinks, membersLinks, logout, isActive, catalogOpen};
