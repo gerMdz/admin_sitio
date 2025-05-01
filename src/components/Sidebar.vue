@@ -20,10 +20,37 @@
         <span>{{ item.label }}</span>
       </router-link>
 
-      <div class="mt-4">
-        <div class="text-gray-500 text-sm uppercase mb-2">Catálogo</div>
+      <div class="mt-2">
+        <div
+            class="text-gray-500 text-sm uppercase mb-2 cursor-pointer select-none flex justify-between items-center"
+            @click="catalogOpen = !catalogOpen"
+        >
+          <span>Catálogo</span>
+          <i :class="catalogOpen ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+        </div>
+
+        <transition name="fade">
+          <div v-if="catalogOpen">
+            <router-link
+                v-for="item in catalogLinks"
+                :key="item.label"
+                :to="item.to"
+                class="link p-2 rounded-lg hover:bg-gray-100 flex items-center gap-2"
+                :class="{ 'bg-gray-200 font-bold': isActive(item.to) }"
+                @click="$emit('link-click')"
+            >
+              <i :class="item.icon"></i>
+              <span>{{ item.label }}</span>
+            </router-link>
+          </div>
+        </transition>
+      </div>
+
+
+      <div class="mt-2">
+        <div class="text-gray-500 text-sm uppercase mb-2">Familia</div>
         <router-link
-            v-for="item in catalogLinks"
+            v-for="item in membersLinks"
             :key="item.label"
             :to="item.to"
             class="link p-2 rounded-lg hover:bg-gray-100 flex items-center gap-2"
@@ -34,6 +61,8 @@
           <span>{{ item.label }}</span>
         </router-link>
       </div>
+
+
       <div class="mt-4">
         <Button label="Cerrar Sesión" icon="pi pi-sign-out" class="p-button-danger w-full" @click="logout"/>
       </div>
@@ -45,11 +74,13 @@
 import {useRoute} from 'vue-router';
 import {useLogout} from '@/composables/logout';
 import Button from 'primevue/button';
+import {ref} from 'vue';
 
 export default {
   emits: ['link-click'],
   components: {Button},
   setup() {
+    const catalogOpen = ref(false);
     const {logout} = useLogout();
     const route = useRoute();
 
@@ -75,10 +106,13 @@ export default {
       {label: '¿Has utilizado alguno de estos servicios?', icon: 'pi pi-briefcase', to: '/services', routerLink: true},
       {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media', routerLink: true},
       {label: 'Voluntariado', icon: 'pi pi-users', to: '/voluntary', routerLink: true},
-
     ];
 
-    return {mainLinks, catalogLinks, logout, isActive};
+    const membersLinks = [
+      {label: 'Miembros', icon: 'pi pi-id-card', to: '/members', routerLink: true}
+    ];
+
+    return {mainLinks, catalogLinks, membersLinks, logout, isActive, catalogOpen};
   },
 };
 </script>
@@ -96,4 +130,14 @@ export default {
   text-decoration: none;
   color: inherit;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
 </style>
