@@ -91,8 +91,12 @@ const routes = [
                 component: MemberExperiences,
                 meta: {requiresAuth: true}
             },
-
-
+            {
+                path: '/member-family',
+                name: 'MemberFamily',
+                component: () => import('@/views/MemberFamily.vue'),
+                meta: { requiresAuth: true }
+            }
         ],
     },
 ];

@@ -7,5 +7,10 @@ export default {
 
     getExperiences(search = '') {
         return api.get(`/combo/experience?search=${encodeURIComponent(search)}`).then(res => res.data);
+    },
+    obtenerComboFamily(term = '') {
+        const res = api.get('/combo/family', {params: {q: term}})
+        return res.data
     }
+
 };
