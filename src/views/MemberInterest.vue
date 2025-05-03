@@ -46,9 +46,7 @@
       </Column>
       <Column header="Estado">
         <template #body="slotProps">
-    <span :class="estadoClase(slotProps.data)">
-      {{ slotProps.data.audiAction === 'D' ? '❌' : '✅' }}
-    </span>
+          {{ slotProps.data.audiAction === 'D' ? '❌' : '✔️' }}
         </template>
       </Column>
 
@@ -240,7 +238,7 @@ const buscarInteres = async (event) => {
 
 const confirmarEliminacion = (item) => {
   confirm.require({
-    message: `¿Seguro que deseas eliminar el interés "${item.interest.nombre.name}" de ${nombreConDni(item.member)}?`,
+    message: `¿Seguro que deseas eliminar la etapa "${item.lifeStage.nombre}" de ${nombreConDni(item.member)}?`,
     header: 'Confirmar eliminación',
     icon: 'pi pi-exclamation-triangle',
     acceptLabel: 'Sí, eliminar',
@@ -248,11 +246,11 @@ const confirmarEliminacion = (item) => {
     acceptClass: 'p-button-danger',
     rejectClass: 'p-button-secondary',
     accept: async () => {
-      await eliminarMemberInterest(item.id)
-      items.value = await listarMemberInterests()
+      await deleteMemberLifeStage(item.id);
+      await cargarDatos();
     }
-  })
-}
+  });
+};
 
 
 </script>

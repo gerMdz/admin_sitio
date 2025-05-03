@@ -1,12 +1,9 @@
 <template>
   <div class="sidebar bg-white shadow-2 flex flex-column h-screen w-64 p-4">
-    <!-- Área superior: usuario y logout -->
     <div class="flex flex-column gap-2 mb-6">
       <div class="text-lg font-bold mb-2">Admin</div>
-      <!--      <Button label="Cerrar Sesión" icon="pi pi-sign-out" class="p-button-danger w-full" @click="logout" />-->
     </div>
 
-    <!-- Menú principal -->
     <div class="menu flex flex-column gap-2 flex-grow">
       <router-link
           v-for="item in mainLinks"
@@ -16,7 +13,7 @@
           :class="{ 'bg-gray-200 font-bold': isActive(item.to) }"
           @click="$emit('link-click')"
       >
-        <i :class="item.icon"></i>
+        <font-awesome-icon :icon="item.icon" class="icon-normalized"/>
         <span>{{ item.label }}</span>
       </router-link>
 
@@ -39,13 +36,15 @@
                 :class="{ 'bg-gray-200 font-bold': isActive(item.to) }"
                 @click="$emit('link-click')"
             >
-              <i :class="item.icon"></i>
+              <font-awesome-icon v-if="item.iconType === 'fa'" :icon="item.icon" class="icon-normalized"/>
+              <i v-else-if="typeof item.icon === 'string' && item.icon.includes('pi ')" :class="item.icon"
+                 class="icon-normalized"/>
+              <component v-else :is="item.icon" class="icon-normalized"/>
               <span>{{ item.label }}</span>
             </router-link>
           </div>
         </transition>
       </div>
-
 
       <div class="mt-2">
         <div class="text-gray-500 text-sm uppercase mb-2">Familia</div>
@@ -57,11 +56,12 @@
             :class="{ 'bg-gray-200 font-bold': isActive(item.to) }"
             @click="$emit('link-click')"
         >
-          <i :class="item.icon"></i>
+          <font-awesome-icon v-if="item.iconType === 'fa'" :icon="item.icon" class="icon-normalized"/>
+          <i v-else-if="typeof item.icon === 'string' && item.icon.includes('pi ')" :class="item.icon" class="icon-normalized"/>
+          <component v-else :is="item.icon" class="icon-normalized"/>
           <span>{{ item.label }}</span>
         </router-link>
       </div>
-
 
       <div class="mt-4">
         <Button label="Cerrar Sesión" icon="pi pi-sign-out" class="p-button-danger w-full" @click="logout"/>
@@ -75,49 +75,66 @@ import {useRoute} from 'vue-router';
 import {useLogout} from '@/composables/logout';
 import Button from 'primevue/button';
 import {ref} from 'vue';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
+import {Users, CalendarCheck, HeartHandshake} from 'lucide-vue-next';
+import {IconBriefcase, IconHeart, IconUserPlus} from '@tabler/icons-vue';
 
 export default {
   emits: ['link-click'],
-  components: {Button},
+  components: {
+    Button,
+    FontAwesomeIcon,
+    LucideUsers: Users,
+    LucideCalendarCheck: CalendarCheck,
+    LucideHeartHandshake: HeartHandshake,
+    TablerBriefcase: IconBriefcase,
+    TablerHeart: IconHeart,
+    TablerUserPlus: IconUserPlus
+  },
   setup() {
     const catalogOpen = ref(false);
     const {logout} = useLogout();
     const route = useRoute();
 
-    const isActive = (path) => {
-      return route.path.startsWith(path);
-    };
+    const isActive = (path) => route.path.startsWith(path);
 
     const mainLinks = [
-      {label: 'Inicio', icon: 'pi pi-home', to: '/panel', routerLink: true},
-      {label: 'Usuarios', icon: 'pi pi-users', to: '/usuarios', routerLink: true},
-      {label: 'Roles', icon: 'pi pi-id-card', to: '/roles', routerLink: true},
+      {label: 'Inicio', icon: ['fas', 'home'], to: '/panel', iconType: 'fa'},
+      {label: 'Usuarios', icon: ['fas', 'users-gear'], to: '/usuarios', iconType: 'fa'},
+      {label: 'Roles', icon: ['fas', 'id-card-clip'], to: '/roles', iconType: 'fa'}
     ];
 
     const catalogLinks = [
-      {label: 'Estados Civiles', icon: 'pi pi-user-plus', to: '/civil-states', routerLink: true},
-      {label: 'Disfrutes', icon: 'pi pi-face-smile', to: '/enjoys', routerLink: true},
-      {label: 'Experiencias Completadas', icon: 'pi pi-star', to: '/experiences', routerLink: true},
-      {label: '¿Con quién vives?', icon: 'pi pi-users', to: '/family', routerLink: true,},
-      {label: 'Sexo', icon: 'pi pi-user', to: '/gender', routerLink: true,},
-      {label: 'Áreas de Interés', icon: 'pi pi-heart', to: '/interests', routerLink: true,},
-      {label: 'Etapas de Vida', icon: 'pi pi-star', to: '/lifestages', routerLink: true,},
-      {label: 'Necesidades', icon: 'pi pi-list', to: '/needs', routerLink: true},
-      {label: '¿Has utilizado alguno de estos servicios?', icon: 'pi pi-briefcase', to: '/services', routerLink: true},
-      {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media', routerLink: true},
-      {label: 'Voluntariados', icon: 'pi pi-users', to: '/voluntary', routerLink: true},
+      {label: 'Estados Civiles', icon: IconUserPlus, to: '/civil-states'},
+      {label: 'Disfrutes', icon: HeartHandshake, to: '/enjoys'},
+      {label: 'Experiencias Completadas', icon: ['fas', 'list-check'], to: '/experiences', iconType: 'fa'},
+      {label: '¿Con quién vives?', icon: Users, to: '/family'},
+      {label: 'Sexo', icon: 'pi pi-user', to: '/gender'},
+      {label: 'Áreas de Interés', icon: IconHeart, to: '/interests'},
+      {label: 'Etapas de Vida', icon: CalendarCheck, to: '/lifestages'},
+      {label: 'Necesidades', icon: 'pi pi-list', to: '/needs'},
+      {label: '¿Has utilizado estos servicios?', icon: IconBriefcase, to: '/services'},
+      {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media'},
+      {label: 'Voluntariados', icon: 'pi pi-users', to: '/voluntary'}
     ];
 
     const membersLinks = [
-      {label: 'Miembros', icon: 'pi pi-id-card', to: '/members', routerLink: true},
-      {label: 'Experiencias por Miembro', icon: 'pi pi-users', to: '/member-experiences', routerLink: true},
-      {label: 'Relaciones Familiares', icon: 'pi pi-users', to: '/member-family', routerLink: true},
-      {label: 'Intereses por miembro', icon: 'pi pi-heart', to: '/member-interests', routerLink: true}
-
+      {label: 'Miembros', icon: ['fas', 'id-card-clip'], to: '/members', iconType: 'fa'},
+      {label: 'Experiencias por Miembro', icon: 'pi pi-star', to: '/member-experiences'},
+      {label: 'Relaciones Familiares', icon: Users, to: '/member-family'},
+      {label: 'Intereses por miembro', icon: 'pi pi-heart', to: '/member-interests'},
+      {label: 'Etapas de Vida', icon: ['fas', 'user-clock'], to: '/member-life-stages', iconType: 'fa'}
     ];
 
-    return {mainLinks, catalogLinks, membersLinks, logout, isActive, catalogOpen};
-  },
+    return {
+      mainLinks,
+      catalogLinks,
+      membersLinks,
+      logout,
+      isActive,
+      catalogOpen
+    };
+  }
 };
 </script>
 
@@ -142,6 +159,14 @@ export default {
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
   max-height: 0;
+}
+
+.icon-normalized {
+  width: 1.25rem; /* 20px = w-5 */
+  height: 1.25rem; /* 20px = h-5 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 </style>

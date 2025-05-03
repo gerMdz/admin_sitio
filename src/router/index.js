@@ -92,8 +92,13 @@ const routes = [{path: '/', redirect: '/login'}, {path: '/login', name: 'Login',
             path: '/member-interests', name: 'MemberInterests',
             component: () => import('@/views/MemberInterest.vue'),
             meta: {requiresAuth: true}
+        },
+        {
+            path: '/member-life-stages',
+            name: 'MemberLifeStages',
+            component: () => import('@/views/MemberLifeStage.vue'),
+            meta: {requiresAuth: true}
         }
-
     ],
 },];
 

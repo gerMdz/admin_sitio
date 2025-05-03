@@ -8,7 +8,7 @@ export async function getComboMembers(q = '') {
     // Transformamos aquí si backend no devuelve `label`
     return response.data.map(m => ({
         id: m.id,
-        label: `${m.label} (${m.dni})`
+        label: `${m.label}`
     }))
 }
 
@@ -27,6 +27,14 @@ export async function getComboInterests(q = '') {
         id: i.id,
         nombre: {name: i.label} // esto es clave
     }))
+}
+
+export async function getComboLifeStages(q = '') {
+    const response = await api.get('/combo/life-stage', {params: {q}});
+    return response.data.map(i => ({
+        id: i.id,
+        label: i.label // ← ya es plano
+    }));
 }
 
 
