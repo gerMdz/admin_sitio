@@ -4,6 +4,8 @@
   <div class="card">
     <div class="flex justify-content-between align-items-center mb-3">
       <h2>¿Quiénes completaron el formulario?</h2>
+
+
       <div class="flex align-items-center gap-2">
         <InputSwitch v-model="verTodos"/>
         <span>{{ verTodos ? 'Mostrar todos' : 'Mostrar activos' }}</span>
@@ -11,11 +13,18 @@
       </div>
     </div>
     <p>Total miembros: {{ miembros.length }}</p>
+    <div class="flex gap-3 mt-2">
+      <InputText v-model="filtroNombre" placeholder="Filtrar por nombre" class="w-15rem"/>
+      <InputText v-model="filtroApellido" placeholder="Filtrar por apellido" class="w-15rem"/>
+      <InputText v-model="filtroDni" placeholder="Filtrar por DNI" class="w-15rem"/>
+      <InputText v-model="filtroEmail" placeholder="Filtrar por email" class="w-15rem"/>
+      <Button icon="pi pi-times" label="Limpiar" class="p-button-secondary p-button-sm" @click="limpiarFiltros"/>
 
+    </div>
     <DataTable :value="miembrosFiltrados" paginator rows="10" responsiveLayout="scroll">
       <Column field="name" header="Nombre" sortable/>
       <Column field="lastname" header="Apellido" sortable/>
-      <Column header="Nacimiento" sortable>
+      <Column header="Nacimiento">
         <template #body="slotProps">
           {{ formatearFecha(slotProps.data.birthdate) }}
         </template>
@@ -25,14 +34,25 @@
       <Column field="phone" header="Teléfono" sortable/>
       <Column field="address" header="Dirección" sortable/>
       <Column field="civilState" header="Estado civil" sortable/>
-      <Column field="gender" header="Género" sortable/>
-
-      <Column field="audiAction" header="Estado">
+      <Column field="gender" header="Género">
         <template #body="slotProps">
-          <span v-if="slotProps.data.audiAction === 'D'" class="text-red-500 font-semibold">Eliminado</span>
-          <span v-else>Activo</span>
+          {{
+            slotProps.data.relatedMember && slotProps.data.audiAction !== 'U'
+                ? '—'
+                : slotProps.data.gender || '—'
+          }}
         </template>
       </Column>
+
+
+      <Column header="Estado">
+        <template #body="slotProps">
+    <span :class="estadoClase(slotProps.data)">
+      {{ slotProps.data.audiAction === 'D' ? '❌' : '✅' }}
+    </span>
+        </template>
+      </Column>
+
       <Column header="Acciones">
         <template #body="slotProps">
           <Button icon="pi pi-pencil" class="p-button-text p-button-sm" @click="editarMiembro(slotProps.data)"/>
@@ -52,6 +72,7 @@
         :visible="visible"
         @update:visible="$emit('update:visible', $event)"
         modal
+        dismissableMask
         header="Detalles del miembro"
         :style="{ width: '500px' }"
     >
@@ -93,8 +114,16 @@
 
         <div class="field">
           <label>Género</label>
-          <p class="p-inputtext">{{ datos.gender }}</p>
+          <p class="p-inputtext">
+            {{
+              datos.relatedMember === true && datos.audiAction !== 'U'
+                  ? '—'
+                  : datos.gender || '—'
+            }}
+          </p>
         </div>
+
+
 
         <div class="field">
           <label>Estado civil</label>
@@ -121,7 +150,7 @@
 </template>
 
 <script>
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, computed} from 'vue';
 import {useStore} from 'vuex';
 import {useToast} from 'primevue/usetoast';
 import {useFiltrarActivos} from '@/composables/useFiltrarActivos';
@@ -155,9 +184,29 @@ export default {
     const store = useStore();
     const toast = useToast();
     const auditId = store.state.user?.auditId || null;
-    const miembrosFiltrados = useFiltrarActivos(miembros, verTodos);
     const modalVisible = ref(false);
     const datosDetalles = ref(null);
+    const filtroNombre = ref('');
+    const filtroApellido = ref('');
+    const filtroDni = ref('');
+    const filtroEmail = ref('');
+
+
+    const miembrosFiltrados = computed(() => {
+      return miembros.value.filter(m => {
+        const activo = verTodos.value || !m.audiAction || m.audiAction !== 'D';
+        const coincideNombre = !filtroNombre.value || m.name?.toLowerCase().includes(filtroNombre.value.toLowerCase());
+        const coincideApellido = !filtroApellido.value || m.lastname?.toLowerCase().includes(filtroApellido.value.toLowerCase());
+        const coincideDni = !filtroDni.value || m.dniDocument?.includes(filtroDni.value);
+        const coincideEmail = !filtroEmail.value || m.email?.toLowerCase().includes(filtroEmail.value.toLowerCase());
+        return activo && coincideNombre && coincideApellido && coincideDni && coincideEmail;
+      });
+    });
+
+    const estadoClase = (item) => {
+      return item.audiAction === 'D' ? 'text-red-400' : 'text-green-600';
+    };
+
 
     const cargarMiembros = async () => {
       try {
@@ -177,6 +226,14 @@ export default {
       miembroActual.value = {...miembro};
       dialogVisible.value = true;
     };
+
+    const limpiarFiltros = () => {
+      filtroNombre.value = '';
+      filtroApellido.value = '';
+      filtroDni.value = '';
+      filtroEmail.value = '';
+    };
+
 
     const guardarMiembro = async () => {
       if (!miembroActual.value.name.trim() || !miembroActual.value.lastname.trim()) {
@@ -289,6 +346,13 @@ export default {
       verDetallesMiembro,
       formatearFecha,
       formatearFechaHora,
+      filtroApellido,
+      filtroDni,
+      filtroEmail,
+      filtroNombre,
+      limpiarFiltros,
+      estadoClase
+
     };
   },
 };
