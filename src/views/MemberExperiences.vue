@@ -110,7 +110,7 @@ import {ref, onMounted, computed, nextTick} from 'vue';
 import {useToast} from 'primevue/usetoast';
 import {useConfirm} from 'primevue/useconfirm';
 import memberExperienceService from '@/services/memberExperience.service';
-import comboService from '@/services/combo.service';
+import {getComboMembers, getComboExperiences} from '@/services/combo.service'
 import Button from 'primevue/button';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
@@ -237,11 +237,11 @@ const confirmarEliminacion = (data) => {
 };
 
 const buscarMiembro = async (event) => {
-  sugerenciasMiembro.value = await comboService.getMembers(event.query);
+  sugerenciasMiembro.value = await getComboMembers(event.query);
 };
 
 const buscarExperiencia = async (event) => {
-  sugerenciasExperiencia.value = await comboService.getExperiences(event.query);
+  sugerenciasExperiencia.value = await getComboExperiences(event.query);
 };
 
 onMounted(async () => {

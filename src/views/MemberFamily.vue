@@ -105,7 +105,6 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
 import InputSwitch from 'primevue/inputswitch'
-import Dropdown from 'primevue/dropdown'
 import Dialog from 'primevue/dialog'
 import ConfirmDialog from 'primevue/confirmdialog'
 import {obtenerTodo, eliminarRelacion, obtenerComboMember} from '@/services/memberFamily.service'
@@ -189,8 +188,10 @@ function confirmarEliminacion(relacion) {
     message: '¿Seguro que deseas eliminar esta relación?',
     header: 'Confirmar eliminación',
     icon: 'pi pi-exclamation-triangle',
-    acceptLabel: 'Sí',
-    rejectLabel: 'Cancelar',
+    acceptLabel: 'Sí, eliminar',
+    rejectLabel: 'No, cancelar',
+    acceptClass: 'p-button-danger',
+    rejectClass: 'p-button-secondary',
     accept: async () => {
       await eliminarRelacion(relacion.id)
       relaciones.value = relaciones.value.filter(r => r.id !== relacion.id)

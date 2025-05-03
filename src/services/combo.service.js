@@ -1,16 +1,38 @@
 import api from '@/api/axios.js';
 
-export default {
-    getMembers(search = '') {
-        return api.get(`/combo/member?search=${encodeURIComponent(search)}`).then(res => res.data);
-    },
+export async function getComboMembers(q = '') {
+    const response = await api.get(`/combo/member`, {
+        params: {q}
+    })
 
-    getExperiences(search = '') {
-        return api.get(`/combo/experience?search=${encodeURIComponent(search)}`).then(res => res.data);
-    },
-    obtenerComboFamily(term = '') {
-        const res = api.get('/combo/family', {params: {q: term}})
-        return res.data
-    }
+    // Transformamos aquí si backend no devuelve `label`
+    return response.data.map(m => ({
+        id: m.id,
+        label: `${m.label} (${m.dni})`
+    }))
+}
 
-};
+
+export async function getComboExperiences(search = '') {
+    const response = await api.get(`/combo/experience`, {
+        params: {search}
+    });
+    return response.data;
+}
+
+export async function getComboInterests(q = '') {
+    const response = await api.get('/combo/interest', {params: {q}})
+
+    return response.data.map(i => ({
+        id: i.id,
+        nombre: {name: i.label} // esto es clave
+    }))
+}
+
+
+export async function getComboFamilies(search = '') {
+    const response = await api.get(`/combo/family`, {
+        params: {q: search}
+    });
+    return response.data;
+}
