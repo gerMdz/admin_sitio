@@ -10,6 +10,7 @@
         <Button label="Nuevo Miembro" icon="pi pi-plus" class="p-button-success ml-3" @click="nuevoMiembro"/>
       </div>
     </div>
+    <p>Total miembros: {{ miembros.length }}</p>
 
     <DataTable :value="miembrosFiltrados" paginator rows="10" responsiveLayout="scroll">
       <Column field="name" header="Nombre" sortable/>
