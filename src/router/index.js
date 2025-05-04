@@ -98,6 +98,12 @@ const routes = [{path: '/', redirect: '/login'}, {path: '/login', name: 'Login',
             name: 'MemberLifeStages',
             component: () => import('@/views/MemberLifeStage.vue'),
             meta: {requiresAuth: true}
+        },
+        {
+            path: '/member-needs',
+            name: 'MemberNeeds',
+            component: () => import('@/views/MemberNeeds'),
+            meta: {requiresAuth: true}
         }
     ],
 },];
