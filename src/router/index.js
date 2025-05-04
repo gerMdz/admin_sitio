@@ -110,6 +110,12 @@ const routes = [{path: '/', redirect: '/login'}, {path: '/login', name: 'Login',
             name: 'MemberServices',
             component: () => import('@/views/MemberServices.vue'),
             meta: {requiresAuth: true}
+        },
+        {
+            path: '/member-social-medias',
+            name: 'MemberSocialMedia',
+            component: () => import('@/views/MemberSocialMedias.vue'),
+            meta: {requiresAuth: true}
         }
 
     ],
