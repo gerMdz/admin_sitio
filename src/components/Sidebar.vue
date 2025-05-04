@@ -57,7 +57,8 @@
             @click="$emit('link-click')"
         >
           <font-awesome-icon v-if="item.iconType === 'fa'" :icon="item.icon" class="icon-normalized"/>
-          <i v-else-if="typeof item.icon === 'string' && item.icon.includes('pi ')" :class="item.icon" class="icon-normalized"/>
+          <i v-else-if="typeof item.icon === 'string' && item.icon.includes('pi ')" :class="item.icon"
+             class="icon-normalized"/>
           <component v-else :is="item.icon" class="icon-normalized"/>
           <span>{{ item.label }}</span>
         </router-link>
@@ -68,6 +69,12 @@
       </div>
     </div>
   </div>
+  <div class="mt-auto text-center text-xs text-gray-500 py-2 border-top-1 border-gray-200">
+
+    v{{ version }} - {{ entorno }}
+
+  </div>
+
 </template>
 
 <script>
@@ -78,6 +85,7 @@ import {ref} from 'vue';
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import {Users, CalendarCheck, HeartHandshake} from 'lucide-vue-next';
 import {IconBriefcase, IconHeart, IconUserPlus} from '@tabler/icons-vue';
+
 
 export default {
   emits: ['link-click'],
@@ -92,6 +100,8 @@ export default {
     TablerUserPlus: IconUserPlus
   },
   setup() {
+    const version = __APP_VERSION__;
+    const entorno = __APP_ENV__ === 'production' ? 'Producción' : 'Desarrollo';
     const catalogOpen = ref(false);
     const {logout} = useLogout();
     const route = useRoute();
@@ -124,7 +134,8 @@ export default {
       {label: 'Relaciones Familiares', icon: Users, to: '/member-family'},
       {label: 'Intereses por miembro', icon: 'pi pi-heart', to: '/member-interests'},
       {label: 'Etapas de Vida de los miembros', icon: ['fas', 'user-clock'], to: '/member-life-stages', iconType: 'fa'},
-      {label: 'Necesidades', icon: ['fas', 'user-clock'], to: '/member-needs', iconType: 'fa'}
+      {label: 'Necesidades', icon: ['fas', 'user-clock'], to: '/member-needs', iconType: 'fa'},
+      {label: 'Servicios', icon: 'pi pi-heart-fill', to: '/member-services'},
     ];
 
     return {
@@ -133,7 +144,9 @@ export default {
       membersLinks,
       logout,
       isActive,
-      catalogOpen
+      catalogOpen,
+      version,
+      entorno
     };
   }
 };

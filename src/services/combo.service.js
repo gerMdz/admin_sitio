@@ -49,3 +49,16 @@ export async function getComboFamilies(q = '') {
     const response = await api.get('/combo/family', {params: {q}});
     return response.data;
 }
+
+export async function getComboServices(q = '', page = 1) {
+    const response = await api.get('/combo/service', {
+        params: {q, page}
+    });
+
+    return response.data.map(i => ({
+        id: i.id,
+        label: i.label
+    }));
+}
+
+
