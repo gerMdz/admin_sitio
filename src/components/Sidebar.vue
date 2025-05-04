@@ -123,7 +123,8 @@ export default {
       {label: 'Experiencias por Miembro', icon: 'pi pi-star', to: '/member-experiences'},
       {label: 'Relaciones Familiares', icon: Users, to: '/member-family'},
       {label: 'Intereses por miembro', icon: 'pi pi-heart', to: '/member-interests'},
-      {label: 'Etapas de Vida', icon: ['fas', 'user-clock'], to: '/member-life-stages', iconType: 'fa'}
+      {label: 'Etapas de Vida de los miembros', icon: ['fas', 'user-clock'], to: '/member-life-stages', iconType: 'fa'},
+      {label: 'Necesidades', icon: ['fas', 'user-clock'], to: '/member-needs', iconType: 'fa'}
     ];
 
     return {

@@ -32,7 +32,14 @@
 
     </div>
 
-    <DataTable :value="filtrados" responsiveLayout="scroll">
+    <DataTable
+        :value="filtrados"
+        paginator
+        :rows="10"
+        :rowsPerPageOptions="[10, 20, 50]"
+        responsiveLayout="scroll"
+    >
+
       <Column header="Miembro">
         <template #body="slotProps">
           {{ nombreConDni(slotProps.data.member) }}

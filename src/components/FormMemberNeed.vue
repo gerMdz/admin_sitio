@@ -28,9 +28,12 @@
     </div>
     <div class="flex justify-content-end gap-2 mt-4">
       <Button label="Cancelar" icon="pi pi-times" class="p-button-secondary" @click="$emit('cerrar')"
-              v-tooltip="'Cerrar sin guardar los cambios'"/>
+
+
+      />
       <Button label="Guardar" icon="pi pi-check" class="p-button-success" @click="guardar"
-              v-tooltip="'Guardar esta asignación de necesidad'"/>
+
+      />
     </div>
   </div>
 </template>
