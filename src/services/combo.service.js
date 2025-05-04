@@ -1,46 +1,51 @@
 import api from '@/api/axios.js';
 
-export async function getComboMembers(q = '') {
-    const response = await api.get(`/combo/member`, {
-        params: {q}
-    })
+export async function getComboMembers(q = '', page = 1) {
+    const response = await api.get('/combo/member', {
+        params: {q, page}
+    });
 
-    // Transformamos aquí si backend no devuelve `label`
     return response.data.map(m => ({
         id: m.id,
-        label: `${m.label}`
-    }))
+        label: m.label
+    }));
 }
 
 
-export async function getComboExperiences(search = '') {
-    const response = await api.get(`/combo/experience`, {
-        params: {search}
-    });
+export async function getComboExperiences(q = '') {
+    const response = await api.get('/combo/experience', {params: {q}});
     return response.data;
 }
 
 export async function getComboInterests(q = '') {
-    const response = await api.get('/combo/interest', {params: {q}})
-
+    const response = await api.get('/combo/interest', {params: {q}});
     return response.data.map(i => ({
         id: i.id,
-        nombre: {name: i.label} // esto es clave
-    }))
+        nombre: i.label
+    }));
 }
 
 export async function getComboLifeStages(q = '') {
     const response = await api.get('/combo/life-stage', {params: {q}});
     return response.data.map(i => ({
         id: i.id,
-        label: i.label // ← ya es plano
+        label: i.label
+    }));
+}
+
+export async function getComboNeeds(q = '', page = 1) {
+    const response = await api.get('/combo/need', {
+        params: {q, page}
+    });
+
+    return response.data.map(i => ({
+        id: i.id,
+        label: i.label
     }));
 }
 
 
-export async function getComboFamilies(search = '') {
-    const response = await api.get(`/combo/family`, {
-        params: {q: search}
-    });
+export async function getComboFamilies(q = '') {
+    const response = await api.get('/combo/family', {params: {q}});
     return response.data;
 }

@@ -15,6 +15,7 @@ import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import '@/assets/sakai/styles.scss';
+import Tooltip from 'primevue/tooltip';
 import Toast from 'primevue/toast';
 import Dialog from 'primevue/dialog';
 import ConfirmationService from 'primevue/confirmationservice';
@@ -44,6 +45,8 @@ app.use(DialogService);
 app.use(ConfirmationService);
 
 library.add(faHome, faUsersGear, faIdCardClip, faUserClock, faListCheck)
+
+app.directive('tooltip', Tooltip);
 
 app.component('LucideUsers', Users)
 app.component('LucideCalendar', Calendar)
