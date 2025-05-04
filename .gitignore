@@ -32,3 +32,5 @@ coverage
 /CheckList.md
 /examples/
 /.editorconfig
+/.env.development
+/.env.production
