@@ -72,4 +72,13 @@ export async function getComboSocialMedias(q = '', page = 1) {
   }));
 }
 
+export async function getComboVoluntaries(q = '', page = 1) {
+  const response = await api.get('/combo/voluntary', {
+    params: {q, page}
+  });
 
+  return response.data.map(i => ({
+    id: i.id,
+    label: i.label
+  }));
+}

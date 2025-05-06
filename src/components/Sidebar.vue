@@ -142,6 +142,7 @@ export default {
       {label: 'Necesidades', icon: ['fas', 'user-clock'], to: '/member-needs', iconType: 'fa'},
       {label: 'Servicios', icon: 'pi pi-heart-fill', to: '/member-services'},
       {label: 'Redes sociales', icon: 'pi pi-like', to: '/member-social-medias'},
+      {label: 'Voluntariado', icon: 'pi pi-like', to: '/member-voluntary'},
     ];
 
     return {
