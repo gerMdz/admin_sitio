@@ -1,12 +1,4 @@
 <template>
-  <ConfirmDialog
-    :draggable="false"
-    :closable="false"
-    :breakpoints="{ '960px': '75vw', '640px': '90vw' }"
-    class="p-confirm-dialog-custom"
-  />
-
-
   <div class="card">
     <div class="flex justify-content-between align-items-center mb-3">
       <h2>Paises</h2>
