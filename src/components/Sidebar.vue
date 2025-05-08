@@ -52,6 +52,35 @@
       </div>
 
       <div class="mt-2">
+        <div
+          class="text-gray-500 text-sm uppercase mb-2 cursor-pointer select-none flex justify-between items-center"
+          @click="parameterOpen = !parameterOpen"
+        >
+          <span>Parámetros geográficos</span>
+          <i :class="parameterOpen ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+        </div>
+
+        <transition name="fade">
+          <div v-if="parameterOpen">
+            <router-link
+              v-for="item in parameterLinks"
+              :key="item.label"
+              :to="item.to"
+              class="link p-2 rounded-lg hover:bg-gray-100 flex items-center gap-2"
+              :class="{ 'bg-gray-200 font-bold': isActive(item.to) }"
+              @click="$emit('link-click')"
+            >
+              <font-awesome-icon v-if="item.iconType === 'fa'" :icon="item.icon" class="icon-normalized"/>
+              <i v-else-if="typeof item.icon === 'string' && item.icon.includes('pi ')" :class="item.icon"
+                 class="icon-normalized"/>
+              <component v-else :is="item.icon" class="icon-normalized"/>
+              <span>{{ item.label }}</span>
+            </router-link>
+          </div>
+        </transition>
+      </div>
+
+      <div class="mt-2">
         <div class="text-gray-500 text-sm uppercase mb-2">Familia</div>
         <router-link
           v-for="item in membersLinks"
@@ -108,6 +137,7 @@ export default {
     const version = __APP_VERSION__;
     const entorno = __APP_ENV__ === 'production' ? 'Producción' : 'Desarrollo';
     const catalogOpen = ref(false);
+    const parameterOpen = ref(false);
     const {logout} = useLogout();
     const route = useRoute();
 
@@ -132,6 +162,9 @@ export default {
       {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media'},
       {label: 'Voluntariados', icon: 'pi pi-users', to: '/voluntary'}
     ];
+    const parameterLinks = [
+      {label: 'Paises', icon: 'pi pi-users', to: '/countries'}
+    ];
 
     const membersLinks = [
       {label: 'Miembros', icon: ['fas', 'id-card-clip'], to: '/members', iconType: 'fa'},
@@ -148,10 +181,12 @@ export default {
     return {
       mainLinks,
       catalogLinks,
+      parameterLinks,
       membersLinks,
       logout,
       isActive,
       catalogOpen,
+      parameterOpen,
       version,
       entorno
     };
