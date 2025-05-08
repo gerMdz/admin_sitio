@@ -44,6 +44,28 @@ export async function getComboNeeds(q = '', page = 1) {
   }));
 }
 
+export async function getComboCountries(q = '', page = 1) {
+  const response = await api.get('/combo/country', {
+    params: {q, page}
+  });
+
+  return response.data.map(i => ({
+    id: i.id,
+    label: i.label
+  }));
+}
+
+export async function getComboStates(q = '', page = 1) {
+  const response = await api.get('/combo/state', {
+    params: {q, page}
+  });
+
+  return response.data.map(i => ({
+    id: i.id,
+    label: i.label
+  }));
+}
+
 
 export async function getComboFamilies(q = '') {
   const response = await api.get('/combo/family', {params: {q}});

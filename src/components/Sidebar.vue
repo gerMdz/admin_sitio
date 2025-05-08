@@ -163,7 +163,8 @@ export default {
       {label: 'Voluntariados', icon: 'pi pi-users', to: '/voluntary'}
     ];
     const parameterLinks = [
-      {label: 'Paises', icon: 'pi pi-users', to: '/countries'}
+      {label: 'Paises', icon: 'pi pi-users', to: '/countries'},
+      {label: 'Provincias', icon: 'pi pi-users', to: '/states'}
     ];
 
     const membersLinks = [

@@ -128,6 +128,12 @@ const routes = [{path: '/', redirect: '/login'}, {path: '/login', name: 'Login',
       name: 'Country',
       component: () => import('@/views/Countries.vue'),
       meta: {requiresAuth: true}
+    },
+    {
+      path: '/states',
+      name: 'States',
+      component: () => import('@/views/States.vue'),
+      meta: {requiresAuth: true}
     }
   ],
 },];
