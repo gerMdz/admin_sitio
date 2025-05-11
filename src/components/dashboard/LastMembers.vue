@@ -1,11 +1,15 @@
 <script setup>
 import {ref, computed} from 'vue';
+import {useRouter} from 'vue-router';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import Button from "primevue/button";
 
 const props = defineProps({
   members: Array
 });
+
+const router = useRouter();
 
 const membersData = computed(() => props.members || []);
 
@@ -17,6 +21,10 @@ function formatearFecha(fecha) {
     month: 'short',
     day: 'numeric',
   });
+}
+
+function verDetalle(id) {
+  router.push({name: 'MemberShow', params: {id}});
 }
 </script>
 
@@ -33,7 +41,6 @@ function formatearFecha(fecha) {
       <Column field="name" header="Nombre" sortable/>
       <Column field="dniDocument" header="DNI" sortable/>
       <Column field="email" header="Email" sortable/>
-      <Column field="email" header="Email" sortable/>
       <Column field="phone" header="Tel." sortable/>
       <Column header="Cumpleaños" sortable>
         <template #body="slotProps">
@@ -42,7 +49,7 @@ function formatearFecha(fecha) {
       </Column>
       <Column header="Ver" style="width: 15%">
         <template #body="slotProps">
-          <Button icon="pi pi-search" class="p-button-text" @click="$emit('ver-detalle', slotProps.data)"/>
+          <Button icon="pi pi-eye" class="p-button-text" @click="verDetalle(slotProps.data.id)"/>
         </template>
       </Column>
     </DataTable>

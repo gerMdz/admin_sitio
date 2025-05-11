@@ -38,8 +38,8 @@
         <template #body="slotProps">
           {{
             slotProps.data.relatedMember && slotProps.data.audiAction !== 'U'
-                ? '—'
-                : slotProps.data.gender || '—'
+              ? '—'
+              : slotProps.data.gender || '—'
           }}
         </template>
       </Column>
@@ -58,23 +58,23 @@
           <Button icon="pi pi-pencil" class="p-button-text p-button-sm" @click="editarMiembro(slotProps.data)"/>
           <Button icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger"
                   @click="eliminarMiembro(slotProps.data)"/>
-          <Button icon="pi pi-eye" class="p-button-text p-button-sm" @click="verDetallesMiembro(slotProps.data)"/>
+          <Button icon="pi pi-eye" class="p-button-text" @click="verDetalle(slotProps.data.id)"/>
         </template>
       </Column>
     </DataTable>
 
     <ModalVerDetallesMember
-        v-model:visible="modalVisible"
-        :datos="datosDetalles"
+      v-model:visible="modalVisible"
+      :datos="datosDetalles"
     />
 
     <Dialog
-        :visible="visible"
-        @update:visible="$emit('update:visible', $event)"
-        modal
-        dismissableMask
-        header="Detalles del miembro"
-        :style="{ width: '500px' }"
+      :visible="visible"
+      @update:visible="$emit('update:visible', $event)"
+      modal
+      dismissableMask
+      header="Detalles del miembro"
+      :style="{ width: '500px' }"
     >
       <div v-if="datos" class="p-fluid">
         <div class="field">
@@ -117,12 +117,11 @@
           <p class="p-inputtext">
             {{
               datos.relatedMember === true && datos.audiAction !== 'U'
-                  ? '—'
-                  : datos.gender || '—'
+                ? '—'
+                : datos.gender || '—'
             }}
           </p>
         </div>
-
 
 
         <div class="field">
@@ -173,10 +172,16 @@ export default {
     InputText,
     Button,
     InputSwitch,
-
     ModalVerDetallesMember,
+
+  },
+  methods: {
+    verDetalle(id) {
+      this.$router.push({name: 'MemberShow', params: {id}});
+    }
   },
   setup() {
+
     const miembros = ref([]);
     const miembroActual = ref({id: null, name: '', lastname: ''});
     const dialogVisible = ref(false);
@@ -352,7 +357,6 @@ export default {
       filtroNombre,
       limpiarFiltros,
       estadoClase
-
     };
   },
 };
