@@ -8,7 +8,7 @@
           {{ member.name }} {{ member.lastname }}
         </h2>
         <p class="text-gray-600">DNI: {{ member.dniDocument }}</p>
-        <p class="text-gray-600">Nacimiento: {{ formatearFecha(member.birthdate, 'es-AR') }}</p>
+        <p class="text-gray-600">Nacimiento: {{ formatearFecha(member.birthdate, 'es-AR', true) }}</p>
         <p v-if="member.relatedMember" class="inline-block mt-2 text-sm bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
           Relacionado</p>
       </div>
