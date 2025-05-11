@@ -48,7 +48,6 @@
         <div class="pl-4 space-y-1 text-gray-700">
           <p><i class="pi pi-envelope mr-2"></i>{{ member.email || '—' }}</p>
           <p><i class="pi pi-phone mr-2"></i>{{ member.phone || '—' }}</p>
-          <p><i class="pi pi-home mr-2"></i>{{ member.address || '—' }}</p>
         </div>
       </AccordionTab>
 
@@ -57,6 +56,7 @@
           <i class="pi pi-map-marker mr-2"></i> Ubicación
         </template>
         <div class="pl-4 space-y-1 text-gray-700">
+          <p><i class="pi pi-home mr-2"></i>{{ member.address || '—' }}</p>
           <p>{{ member.locality }}, {{ member.district }}</p>
           <p>{{ member.state }}, {{ member.country }}</p>
         </div>
