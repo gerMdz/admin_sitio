@@ -1,7 +1,7 @@
 <template>
-  <div class="max-w-4xl mx-auto mt-6 space-y-4">
+  <div class="max-w-4xl mx-auto mt-2 space-y-4">
     <!-- Card fija con foto a la derecha -->
-    <div class="card p-6 shadow-md bg-white rounded-xl flex flex-col md:flex-row justify-between items-start gap-6">
+    <div class="card p-4 shadow-md bg-white rounded-xl flex flex-col md:flex-row justify-between items-start gap-6">
       <!-- Datos básicos -->
       <div class="flex-1">
         <h2 class="text-2xl font-bold">
@@ -105,7 +105,7 @@ const fotoUrl = computed(() => {
 });
 
 onMounted(async () => {
-  const res = await api.get(`/member/${route.params.id}`);
+  const res = await api.get(`/members/${route.params.id}`);
   member.value = res.data;
 });
 </script>
