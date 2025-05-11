@@ -53,7 +53,7 @@
 
       <AccordionTab>
         <template #header>
-          <i class="pi pi-map-marker mr-2"></i> Ubicación
+          <i class="pi pi-map-marker mr-2"></i> Domiclio
         </template>
         <div class="pl-4 space-y-1 text-gray-700">
           <p><i class="pi pi-home mr-2"></i>{{ member.address || '—' }}</p>
