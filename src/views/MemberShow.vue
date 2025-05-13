@@ -165,10 +165,27 @@
                 <p v-else class="text-gray-500">No hay relaciones familiares registradas.</p>
               </div>
             </AccordionContent>
-
-
           </AccordionPanel>
 
+          <AccordionPanel value="7" class="panel-experiencias">
+            <AccordionHeader>
+              <i class="pi pi-briefcase mr-2"></i> Intereses
+            </AccordionHeader>
+            <AccordionContent>
+              <div class="pl-4 space-y-1 text-gray-800">
+                <div v-if="interests.length === 0" class="text-gray-500">No tiene intereses registradas</div>
+                <ul v-else class="mt-0">
+                  <li v-for="exp in interests" :key="exp.id" class="pl-4 text-600">
+                    {{ exp.interest }}
+                    <span class="text-xs text-gray-500 italic pl-2">
+                      Auditoría:
+          ({{ formatearFecha(exp.audi_date, 'es-AR') }}, {{ exp.audi_user || '—' }})
+        </span>
+                  </li>
+                </ul>
+              </div>
+            </AccordionContent>
+          </AccordionPanel>
 
         </Accordion>
       </div>
@@ -192,6 +209,7 @@ import AccordionContent from 'primevue/accordioncontent';
 const route = useRoute();
 const member = ref({});
 const experiences = ref([]);
+const interests = ref([]);
 const familyRelations = ref([]);
 
 const loading = ref(true);
@@ -209,17 +227,19 @@ onMounted(async () => {
   const memberId = route.params.id;
 
   try {
-    const [resMember, resExp, resFamilyRelations] = await Promise.all([
+    const [resMember, resExp, resFamilyRelations, resInterest] = await Promise.all([
       api.get(`/members/${memberId}`),
       api.get(`/member-experience/member/${memberId}`),
       api.get(`/member-family/member/${memberId}`),
+      api.get(`/member-interest/member/${memberId}`),
     ]);
 
     member.value = resMember.data;
     experiences.value = resExp.data;
     familyRelations.value = resFamilyRelations.data;
+    interests.value = resInterest.data;
   } catch (e) {
-    console.error('Error al cargar miembro o experiencias', e);
+    console.error('Error al cargar datos', e);
   } finally {
     loading.value = false;
   }
