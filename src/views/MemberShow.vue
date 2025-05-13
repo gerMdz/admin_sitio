@@ -187,6 +187,26 @@
             </AccordionContent>
           </AccordionPanel>
 
+          <AccordionPanel value="8" class="panel-experiencias">
+            <AccordionHeader>
+              <i class="pi pi-briefcase mr-2"></i> Etapa de vida
+            </AccordionHeader>
+            <AccordionContent>
+              <div class="pl-4 space-y-1 text-gray-800">
+                <div v-if="lifeStages.length === 0" class="text-gray-500">No tiene etapa de vida registrada</div>
+                <ul v-else class="mt-0">
+                  <li v-for="exp in lifeStages" :key="exp.id" class="pl-4 text-600">
+                    {{ exp.lifeStage }}
+                    <span class="text-xs text-gray-500 italic pl-2">
+                      Auditoría:
+          ({{ formatearFecha(exp.audi_date, 'es-AR') }}, {{ exp.audi_user || '—' }})
+        </span>
+                  </li>
+                </ul>
+              </div>
+            </AccordionContent>
+          </AccordionPanel>
+
         </Accordion>
       </div>
     </div>
@@ -210,6 +230,7 @@ const route = useRoute();
 const member = ref({});
 const experiences = ref([]);
 const interests = ref([]);
+const lifeStages = ref([]);
 const familyRelations = ref([]);
 
 const loading = ref(true);
@@ -227,17 +248,19 @@ onMounted(async () => {
   const memberId = route.params.id;
 
   try {
-    const [resMember, resExp, resFamilyRelations, resInterest] = await Promise.all([
+    const [resMember, resExp, resFamilyRelations, resInterest, resLifeStages] = await Promise.all([
       api.get(`/members/${memberId}`),
       api.get(`/member-experience/member/${memberId}`),
       api.get(`/member-family/member/${memberId}`),
       api.get(`/member-interest/member/${memberId}`),
+      api.get(`/member-life-stages/member/${memberId}`),
     ]);
 
     member.value = resMember.data;
     experiences.value = resExp.data;
     familyRelations.value = resFamilyRelations.data;
     interests.value = resInterest.data;
+    lifeStages.value = resLifeStages.data;
   } catch (e) {
     console.error('Error al cargar datos', e);
   } finally {
