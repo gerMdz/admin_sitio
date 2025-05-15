@@ -8,7 +8,7 @@
     <div v-else>
       <div class="max-w-4xl mx-auto mt-2 space-y-4">
         <!-- Card fija con foto a la derecha -->
-        <div class="card p-4 shadow-md bg-white rounded-xl flex flex-col md:flex-row justify-between items-start gap-6">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-6">
           <!-- Datos básicos -->
           <div class="flex-1">
             <h2 class="text-2xl font-bold">
@@ -19,20 +19,13 @@
             <p v-if="member.relatedMember"
                class="inline-block mt-2 text-sm bg-blue-100 text-blue-800 px-2 py-0.5 rounded">
               Relacionado</p>
-          </div>
 
-          <!-- Foto o silueta -->
-          <div
-            class="w-32 h-32 rounded-xl bg-gray-200 flex items-center justify-center overflow-hidden self-center md:self-start">
-            <img
-              v-if="fotoUrl"
-              :src="fotoUrl"
-              alt="Foto del miembro"
-              class="object-cover w-full h-full"
-            />
-            <i v-else class="pi pi-user text-6xl text-gray-500"></i>
           </div>
+          <FotoMiembro :member-id="member.id"/>
         </div>
+
+        <!-- Foto o silueta -->
+
 
         <!-- Secciones colapsables -->
         <Accordion :value="['0']" multiple>
@@ -211,6 +204,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -225,6 +219,8 @@ import Accordion from 'primevue/accordion';
 import AccordionPanel from 'primevue/accordionpanel';
 import AccordionHeader from 'primevue/accordionheader';
 import AccordionContent from 'primevue/accordioncontent';
+
+import FotoMiembro from "@/components/FotoMiembro.vue";
 
 const route = useRoute();
 const member = ref({});
