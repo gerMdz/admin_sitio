@@ -205,7 +205,7 @@
             </AccordionHeader>
             <AccordionContent>
               <div class="pl-4 space-y-1 text-gray-800">
-                <div v-if="needs.length === 0" class="text-gray-500">No tiene necesidadas registradas</div>
+                <div v-if="needs.length === 0" class="text-gray-500">No tiene necesidades registradas</div>
                 <ul v-else class="mt-0">
                   <li v-for="exp in needs" :key="exp.id" class="pl-4 text-600">
                     {{ exp.need }}
