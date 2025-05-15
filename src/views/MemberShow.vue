@@ -199,6 +199,25 @@
               </div>
             </AccordionContent>
           </AccordionPanel>
+          <AccordionPanel value="9" class="panel-experiencias">
+            <AccordionHeader>
+              <i class="pi pi-briefcase mr-2"></i> Necesidades señaladas
+            </AccordionHeader>
+            <AccordionContent>
+              <div class="pl-4 space-y-1 text-gray-800">
+                <div v-if="needs.length === 0" class="text-gray-500">No tiene necesidadas registradas</div>
+                <ul v-else class="mt-0">
+                  <li v-for="exp in needs" :key="exp.id" class="pl-4 text-600">
+                    {{ exp.need }}
+                    <span class="text-xs text-gray-500 italic pl-2">
+                      Auditoría:
+          ({{ formatearFecha(exp.audi_date, 'es-AR') }}, {{ exp.audi_user || '—' }})
+        </span>
+                  </li>
+                </ul>
+              </div>
+            </AccordionContent>
+          </AccordionPanel>
 
         </Accordion>
       </div>
@@ -227,6 +246,7 @@ const member = ref({});
 const experiences = ref([]);
 const interests = ref([]);
 const lifeStages = ref([]);
+const needs = ref([]);
 const familyRelations = ref([]);
 
 const loading = ref(true);
@@ -244,12 +264,13 @@ onMounted(async () => {
   const memberId = route.params.id;
 
   try {
-    const [resMember, resExp, resFamilyRelations, resInterest, resLifeStages] = await Promise.all([
+    const [resMember, resExp, resFamilyRelations, resInterest, resLifeStages, resNeeds] = await Promise.all([
       api.get(`/members/${memberId}`),
       api.get(`/member-experience/member/${memberId}`),
       api.get(`/member-family/member/${memberId}`),
       api.get(`/member-interest/member/${memberId}`),
       api.get(`/member-life-stages/member/${memberId}`),
+      api.get(`/member-need/member/${memberId}`),
     ]);
 
     member.value = resMember.data;
@@ -257,6 +278,7 @@ onMounted(async () => {
     familyRelations.value = resFamilyRelations.data;
     interests.value = resInterest.data;
     lifeStages.value = resLifeStages.data;
+    needs.value = resNeeds.data;
   } catch (e) {
     console.error('Error al cargar datos', e);
   } finally {
