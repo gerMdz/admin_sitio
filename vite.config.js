@@ -3,9 +3,22 @@ import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
 import {defineConfig} from 'vite';
 import path from 'path';
-import {readFileSync} from 'fs'
+import {readFileSync, existsSync} from 'fs';
 
-const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'))
+const isDev = process.env.NODE_ENV === 'development';
+const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'));
+
+const httpsOptions = () => {
+  const keyPath = path.resolve(__dirname, 'cert/localhost-key.pem');
+  const certPath = path.resolve(__dirname, 'cert/localhost.pem');
+
+  return existsSync(keyPath) && existsSync(certPath)
+    ? {
+      key: readFileSync(keyPath),
+      cert: readFileSync(certPath)
+    }
+    : false;
+};
 
 export default defineConfig({
   plugins: [
@@ -31,6 +44,11 @@ export default defineConfig({
         secure: false,
       },
     },
+    ...(isDev && {
+      https: httpsOptions(),
+      host: '127.0.0.1',
+      port: 5173
+    })
   },
   build: {
     chunkSizeWarningLimit: 1000,
@@ -45,5 +63,4 @@ export default defineConfig({
       }
     }
   }
-
 });

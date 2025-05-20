@@ -1,6 +1,4 @@
 <template>
-
-
   <div class="card">
     <div class="flex justify-content-between align-items-center mb-3">
       <h2>¿Quiénes completaron el formulario?</h2>
@@ -21,7 +19,10 @@
       <Button icon="pi pi-times" label="Limpiar" class="p-button-secondary p-button-sm" @click="limpiarFiltros"/>
 
     </div>
-    <DataTable :value="miembrosFiltrados" paginator rows="10" responsiveLayout="scroll">
+    <DataTable
+      :value="miembrosFiltrados" paginator :rows="10" responsiveLayout="scroll"
+      :rowsPerPageOptions="[10, 20, 50]"
+    >
       <Column field="name" header="Nombre" sortable/>
       <Column field="lastname" header="Apellido" sortable/>
       <Column header="Nacimiento">

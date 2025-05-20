@@ -27,6 +27,7 @@ const url = ref(null);
 
 onMounted(async () => {
   try {
+    console.log(props.memberId)
     const response = await api.get(`/foto/${props.memberId}`, {
       responseType: 'blob',
     });

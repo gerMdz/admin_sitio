@@ -16,11 +16,13 @@
     <p>Total relaciones: {{ relacionesFiltradas.length }}</p>
 
     <DataTable
-        :value="relacionesFiltradas"
-        :paginator="true"
-        :rows="10"
-        dataKey="id"
-        responsiveLayout="scroll"
+      :value="relacionesFiltradas"
+      paginator
+      :rows="10"
+      dataKey="id"
+      responsiveLayout="scroll"
+      :rowsPerPageOptions="[10, 20, 50]"
+
     >
       <Column header="Miembro">
         <template #body="{ data }">
@@ -45,22 +47,22 @@
       </Column>
     </DataTable>
     <Dialog
-        v-model:visible="mostrarDialogo"
-        :modal="true"
-        :closable="true"
-        :dismissableMask="true"
-        appendTo="body"
-        :header="modoEdicion ? 'Editar relación' : 'Agregar experiencia'"
-        style="width: 35rem">
+      v-model:visible="mostrarDialogo"
+      :modal="true"
+      :closable="true"
+      :dismissableMask="true"
+      appendTo="body"
+      :header="modoEdicion ? 'Editar relación' : 'Agregar experiencia'"
+      style="width: 35rem">
       <div class="field">
         <label for="member">Miembro</label>
         <InputText v-if="modoEdicion" :modelValue="formulario.member.label" disabled/>
         <AutoComplete
-            v-else
-            v-model="formulario.member"
-            :suggestions="sugerenciasMiembro"
-            @complete="buscarMiembro"
-            field="label"
+          v-else
+          v-model="formulario.member"
+          :suggestions="sugerenciasMiembro"
+          @complete="buscarMiembro"
+          field="label"
         />
 
       </div>
@@ -78,13 +80,13 @@
 
 
     <Dialog
-        v-model:visible="mostrarDetalle"
-        header="Detalle"
-        :modal="true"
-        appendTo="body"
-        style="width: 30rem"
-        :closable="true"
-        :dismissableMask="true"
+      v-model:visible="mostrarDetalle"
+      header="Detalle"
+      :modal="true"
+      appendTo="body"
+      style="width: 30rem"
+      :closable="true"
+      :dismissableMask="true"
     >
 
       <div class="mb-2"><strong>Miembro:</strong> {{ seleccionado.member?.lastname }} {{ seleccionado.member?.name }}
@@ -133,7 +135,7 @@ const relacionesFiltradas = computed(() => {
     const experienciaTexto = `${r.experience?.name ?? ''}`.toLowerCase();
 
     return miembroTexto.includes(filtroMiembro.value.toLowerCase()) &&
-        experienciaTexto.includes(filtroExperiencia.value.toLowerCase());
+      experienciaTexto.includes(filtroExperiencia.value.toLowerCase());
   });
 });
 

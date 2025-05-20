@@ -34,3 +34,4 @@ coverage
 /.editorconfig
 /.env.development
 /.env.production
+/cert/
