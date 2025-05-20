@@ -1,15 +1,17 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import Login from '../views/Login.vue';
-import Layout from '../layouts/Layout.vue';
+// import Layout from '../layouts/Layout.vue';
+import AppLayout from '@/layouts/AppLayout.vue';
 import MemberExperiences from "@/views/MemberExperiences.vue";
 
 const routes = [{path: '/', redirect: '/login'}, {path: '/login', name: 'Login', component: Login}, {
   path: '/',
-  component: Layout,
+  component: AppLayout,
   children: [{
     path: '/panel',
     name: 'Panel',
-    component: () => import('../views/Panel.vue'),
+    // component: () => import('../views/Panel.vue'),
+    component: () => import('../views/Dashboard.vue'),
     meta: {requiresAuth: true}
   }, {
     path: '/usuarios',

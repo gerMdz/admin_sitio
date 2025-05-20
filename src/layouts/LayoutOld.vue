@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import Sidebar from 'primevue/sidebar';
+import Sidebar from 'primevue/drawer';
 import SidebarMenu from '@/components/Sidebar.vue'; // Sidebar real
 import Configurator from '@/components/Configurator.vue';
 import Menubar from 'primevue/menubar';
