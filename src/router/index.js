@@ -148,6 +148,12 @@ const routes = [{path: '/', redirect: '/login'}, {path: '/login', name: 'Login',
       name: 'MemberShow',
       component: () => import('@/views/MemberShow.vue'),
       meta: {requiresAuth: true}
+    },
+    {
+      path: '/logs',
+      name: 'ApiLogs',
+      component: () => import('@/views/ApiLogs.vue'),
+      meta: {requiresAuth: true}
     }
 
 

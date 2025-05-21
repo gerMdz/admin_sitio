@@ -129,7 +129,7 @@ const filtroExperiencia = ref('');
 
 const relacionesFiltradas = computed(() => {
   return relaciones.value.filter((r) => {
-    if (!verTodos.value && r.audi_action === 'D') return false;
+    if (!verTodos.value && !r && r.audi_action === 'D') return false;
 
     const miembroTexto = `${r.member?.lastname ?? ''} ${r.member?.name ?? ''} ${r.member?.dniDocument ?? ''}`.toLowerCase();
     const experienciaTexto = `${r.experience?.name ?? ''}`.toLowerCase();

@@ -39,6 +39,18 @@ const model = ref([
     ]
   },
   {
+    label: 'Audit',
+
+    items: [
+      {
+        label: 'Logs API',
+        icon: 'pi pi-list',
+        to: '/logs'
+      }
+
+    ]
+  },
+  {
     label: 'Miembros',
     items: [
       {label: 'Miembros', icon: ['fas', 'id-card-clip'], to: '/members', iconType: 'fa'},
