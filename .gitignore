@@ -35,3 +35,4 @@ coverage
 /.env.development
 /.env.production
 /cert/
+/docs/tasks.md
