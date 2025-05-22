@@ -42,7 +42,7 @@ function verDetalle(id) {
       <Column field="dniDocument" header="DNI" sortable/>
       <Column field="email" header="Email" sortable/>
       <Column field="phone" header="Tel." sortable/>
-      <Column header="Cumpleaños" sortable>
+      <Column field="birthdate" header="Cumpleaños" sortable>
         <template #body="slotProps">
           {{ formatearFecha(slotProps.data.birthdate) }}
         </template>

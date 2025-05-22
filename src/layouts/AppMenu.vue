@@ -2,66 +2,85 @@
 import {ref} from 'vue';
 
 import AppMenuItem from './AppMenuItem.vue';
-import {IconBriefcase, IconHeart, IconUserPlus} from "@tabler/icons-vue";
-import {CalendarCheck, HeartHandshake, Users} from "lucide-vue-next";
+import {
+  IconBriefcase,
+  IconHeart,
+  IconUserPlus,
+  IconWorld,
+  IconListCheck,
+  IconSettings,
+  IconMapPin,
+  IconFileAnalytics,
+  IconStar,
+  IconUsers
+} from "@tabler/icons-vue";
+import {
+  CalendarCheck,
+  HeartHandshake,
+  Users,
+  Globe,
+  Heart,
+  Clock,
+  Database,
+  ListChecks,
+  Share2
+} from "lucide-vue-next";
 
 const model = ref([
   {
     label: 'Main',
     items: [
       {label: 'Inicio', icon: ['fas', 'home'], to: '/panel', iconType: 'fa'},
-      {label: 'Usuarios', icon: ['fas', 'users-gear'], to: '/usuarios', iconType: 'fa'},
+      {label: 'Usuarios', icon: IconUsers, to: '/usuarios', iconType: 'component'},
       {label: 'Roles', icon: ['fas', 'id-card-clip'], to: '/roles', iconType: 'fa'}
     ]
   },
   {
     label: 'Catálogos',
     items: [
-      {label: 'Estados Civiles', icon: IconUserPlus, to: '/civil-states'},
-      {label: 'Disfrutes', icon: HeartHandshake, to: '/enjoys'},
-      {label: 'Experiencias Completadas', icon: ['fas', 'list-check'], to: '/experiences', iconType: 'fa'},
-      {label: '¿Con quién vives?', icon: Users, to: '/family'},
+      {label: 'Estados Civiles', icon: IconUserPlus, to: '/civil-states', iconType: 'component'},
+      {label: 'Disfrutes', icon: HeartHandshake, to: '/enjoys', iconType: 'component'},
+      {label: 'Experiencias Completadas', icon: ListChecks, to: '/experiences', iconType: 'component'},
+      {label: '¿Con quién vives?', icon: Users, to: '/family', iconType: 'component'},
       {label: 'Sexo', icon: 'pi pi-user', to: '/gender'},
-      {label: 'Áreas de Interés', icon: IconHeart, to: '/interests'},
-      {label: 'Etapas de Vida', icon: CalendarCheck, to: '/lifestages'},
-      {label: 'Necesidades', icon: 'pi pi-list', to: '/needs'},
-      {label: '¿Has utilizado estos servicios?', icon: IconBriefcase, to: '/services'},
-      {label: 'Redes Sociales', icon: 'pi pi-globe', to: '/social-media'},
+      {label: 'Áreas de Interés', icon: Heart, to: '/interests', iconType: 'component'},
+      {label: 'Etapas de Vida', icon: CalendarCheck, to: '/lifestages', iconType: 'component'},
+      {label: 'Necesidades', icon: IconListCheck, to: '/needs', iconType: 'component'},
+      {label: '¿Has utilizado estos servicios?', icon: IconBriefcase, to: '/services', iconType: 'component'},
+      {label: 'Redes Sociales', icon: Globe, to: '/social-media', iconType: 'component'},
       {label: 'Voluntariados', icon: 'pi pi-users', to: '/voluntary'}
     ]
   },
   {
     label: 'Parámetros',
-
     items: [
-      {label: 'Países', icon: 'pi pi-users', to: '/countries'},
-      {label: 'Provincias', icon: 'pi pi-users', to: '/states'}
+      {label: 'Países', icon: IconWorld, to: '/countries', iconType: 'component'},
+      {label: 'Provincias', icon: IconMapPin, to: '/states', iconType: 'component'}
     ]
   },
   {
     label: 'Audit',
-
     items: [
       {
         label: 'Logs API',
-        icon: 'pi pi-list',
-        to: '/logs'
+        icon: IconFileAnalytics,
+        to: '/logs',
+        iconType: 'component'
       }
-
     ]
   },
   {
     label: 'Miembros',
     items: [
       {label: 'Miembros', icon: ['fas', 'id-card-clip'], to: '/members', iconType: 'fa'},
-      {label: 'Experiencias por Miembro', icon: 'pi pi-star', to: '/member-experiences'},
-      {label: 'Relaciones Familiares', icon: Users, to: '/member-family'},
-      {label: 'Intereses por miembro', icon: 'pi pi-heart', to: '/member-interests'},
-      {label: 'Etapas de Vida de los miembros', icon: ['fas', 'user-clock'], to: '/member-life-stages', iconType: 'fa'},
-      {label: 'Necesidades', icon: ['fas', 'user-clock'], to: '/member-needs', iconType: 'fa'},
-      {label: 'Servicios', icon: 'pi pi-heart-fill', to: '/member-services'},
-      {label: 'Redes sociales', icon: 'pi pi-like', to: '/member-social-medias'},
-      {label: 'Voluntariado', icon: 'pi pi-like', to: '/member-voluntary'},
+      {label: 'Experiencias por Miembro', icon: IconStar, to: '/member-experiences', iconType: 'component'},
+      {label: 'Relaciones Familiares', icon: Users, to: '/member-family', iconType: 'component'},
+      {label: 'Intereses por miembro', icon: IconHeart, to: '/member-interests', iconType: 'component'},
+      {label: 'Etapas de Vida de los miembros', icon: Clock, to: '/member-life-stages', iconType: 'component'},
+      {label: 'Necesidades', icon: Database, to: '/member-needs', iconType: 'component'},
+      {label: 'Servicios', icon: IconSettings, to: '/member-services', iconType: 'component'},
+      {label: 'Redes sociales', icon: Share2, to: '/member-social-medias', iconType: 'component'},
+      {label: 'Voluntariado', icon: 'pi pi-heart', to: '/member-voluntary'},
     ]
   }
 ]);
