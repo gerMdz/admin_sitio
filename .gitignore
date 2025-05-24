@@ -36,3 +36,4 @@ coverage
 /.env.production
 /cert/
 /docs/tasks.md
+/docs/completed_tasks.md

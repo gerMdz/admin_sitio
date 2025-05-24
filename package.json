@@ -1,6 +1,6 @@
 {
   "name": "alameda-panel",
-  "version": "0.33.2",
+  "version": "0.34.0",
   "description": "Panel administrativo para gestión de relaciones censales y catálogos del sistema API Alameda.",
   "author": "Gerardo J. Montivero, GerMdz, <gerardo.montivero@gmail.com>",
   "license": "MIT",

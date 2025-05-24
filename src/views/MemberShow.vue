@@ -11,6 +11,25 @@
       />
     </div>
     <div v-else class="space-y-6">
+      <!-- Botones de navegación -->
+      <div class="flex justify-between mb-4">
+        <Button
+          icon="pi pi-arrow-left"
+          label="Miembro Anterior"
+          class="p-button-outlined"
+          @click="goToPreviousMember"
+          :disabled="!previousMemberId"
+        />
+        <Button
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          label="Miembro Siguiente"
+          class="p-button-outlined"
+          @click="goToNextMember"
+          :disabled="!nextMemberId"
+        />
+      </div>
+
       <!-- Información básica del miembro -->
       <Card class="shadow-md border-0 overflow-hidden">
         <template #content>
@@ -41,14 +60,15 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue';
-import {useRoute} from 'vue-router';
+import {ref, onMounted, computed, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 import api from '@/api/axios';
 
 // Componentes PrimeVue
 import ProgressSpinner from 'primevue/progressspinner';
 import Accordion from 'primevue/accordion';
 import Card from 'primevue/card';
+import Button from 'primevue/button';
 
 // Componentes personalizados
 import MemberBasicInfo from '@/components/member/MemberBasicInfo.vue';
@@ -67,12 +87,46 @@ import MemberSocialMediaPanel from '@/components/member/MemberSocialMediaPanel.v
 import MemberVoluntaryPanel from '@/components/member/MemberVoluntaryPanel.vue';
 
 const route = useRoute();
+const router = useRouter();
 const member = ref({});
 const familyRelations = ref([]);
 const loading = ref(true);
 
-onMounted(async () => {
-  const memberId = route.params.id;
+// Computed properties for navigation
+const previousMemberId = computed(() => {
+  // Since member IDs are consecutive integers, we can just decrement by 1
+  return member.value.id > 1 ? member.value.id - 1 : null;
+});
+
+const nextMemberId = computed(() => {
+  // Since member IDs are consecutive integers, we can just increment by 1
+  return member.value.id ? member.value.id + 1 : null;
+});
+
+// Navigation functions
+const goToPreviousMember = () => {
+  if (previousMemberId.value) {
+    console.log('Navigating to previous member:', previousMemberId.value);
+    router.push({
+      name: 'MemberShow',
+      params: { id: previousMemberId.value }
+    }).catch(err => console.error('Navigation error:', err));
+  }
+};
+
+const goToNextMember = () => {
+  if (nextMemberId.value) {
+    console.log('Navigating to next member:', nextMemberId.value);
+    router.push({
+      name: 'MemberShow',
+      params: { id: nextMemberId.value }
+    }).catch(err => console.error('Navigation error:', err));
+  }
+};
+
+// Function to load member data
+const loadMemberData = async (memberId) => {
+  loading.value = true;
 
   try {
     const [resMember, resFamilyRelations] = await Promise.all([
@@ -87,6 +141,19 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
+};
+
+// Watch for changes in the route parameter
+watch(() => route.params.id, (newId) => {
+  if (newId) {
+    console.log('Member ID changed in URL, loading new data:', newId);
+    loadMemberData(newId);
+  }
+});
+
+onMounted(() => {
+  const memberId = route.params.id;
+  loadMemberData(memberId);
 });
 </script>
 <style scoped>
