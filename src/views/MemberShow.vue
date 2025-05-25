@@ -16,7 +16,7 @@
         <Button
           icon="pi pi-arrow-left"
           label="Miembro Anterior"
-          class="p-button-outlined"
+          class="p-button-outlined px-4 py-2"
           @click="goToPreviousMember"
           :disabled="!previousMemberId"
         />
@@ -24,7 +24,7 @@
           icon="pi pi-arrow-right"
           iconPos="right"
           label="Miembro Siguiente"
-          class="p-button-outlined"
+          class="p-button-outlined px-4 py-2"
           @click="goToNextMember"
           :disabled="!nextMemberId"
         />
