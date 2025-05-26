@@ -39,11 +39,16 @@ const chartData = computed(() => {
 
 const chartOptions = computed(() => {
   return {
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'bottom',
         labels: {
-          usePointStyle: true
+          usePointStyle: true,
+          font: {
+            size: 12
+          }
         }
       },
       tooltip: {
@@ -106,7 +111,7 @@ onMounted(async () => {
       No hay datos disponibles
     </div>
     <div v-else class="chart-container">
-      <Chart type="pie" :data="chartData" :options="chartOptions" class="w-full" />
+      <Chart type="pie" :data="chartData" :options="chartOptions" class="w-full h-full" />
     </div>
   </div>
 </template>
@@ -114,8 +119,8 @@ onMounted(async () => {
 <style scoped>
 .chart-container {
   position: relative;
-  height: 100%;
-  max-width: 100%;
+  height: 300px;
+  width: 100%;
   margin: 0 auto;
 }
 </style>

@@ -34,14 +34,16 @@
       </div>
 
       <div class="w-full lg:w-1/2 px-2 mb-4">
-        <div class="card h-full flex flex-wrap">
-          <div class="w-full lg:w-1/2">
-            <CivilStatePieChart />
-          </div>
-          <div class="w-full lg:w-1/2">
-            <!-- Placeholder for Gender Chart -->
-            <div class="flex justify-center items-center h-full">
-              <p class="text-gray-500">Próximamente: Gráfico por Sexo</p>
+        <div class="card h-full">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="col-span-1">
+              <CivilStatePieChart />
+            </div>
+            <div class="col-span-1">
+              <!-- Placeholder for Gender Chart -->
+              <div class="flex justify-center items-center h-full">
+                <p class="text-gray-500">Próximamente: Gráfico por Sexo</p>
+              </div>
             </div>
           </div>
         </div>
