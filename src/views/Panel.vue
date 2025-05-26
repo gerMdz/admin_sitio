@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full h-full flex flex-col">
     <div class="card mb-4">
       <h5>Dashboard</h5>
       <p>Bienvenido al panel de administración</p>
@@ -25,10 +25,26 @@
       </div>
     </div>
 
-    <div v-if="dashboard" class="w-full lg:w-1/2">
-      <div class="card">
-        <h5>Últimos Miembros</h5>
-        <LastMembers :members="dashboard.latestMembers" @ver-detalle="mostrarDetalle"/>
+    <div class="flex flex-wrap -mx-2 flex-grow">
+      <div v-if="dashboard" class="w-full lg:w-1/2 px-2 mb-4">
+        <div class="card h-full">
+          <h5>Últimos Miembros</h5>
+          <LastMembers :members="dashboard.latestMembers" @ver-detalle="mostrarDetalle"/>
+        </div>
+      </div>
+
+      <div class="w-full lg:w-1/2 px-2 mb-4">
+        <div class="card h-full flex flex-wrap">
+          <div class="w-full lg:w-1/2">
+            <CivilStatePieChart />
+          </div>
+          <div class="w-full lg:w-1/2">
+            <!-- Placeholder for Gender Chart -->
+            <div class="flex justify-center items-center h-full">
+              <p class="text-gray-500">Próximamente: Gráfico por Sexo</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +61,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { getDashboardData } from '@/services/dashboard.service.js';
 import LastMembers from '@/components/dashboard/LastMembers.vue';
+import CivilStatePieChart from '@/components/dashboard/CivilStatePieChart.vue';
 
 const dashboard = ref(null);
 const isLoading = ref(true);
