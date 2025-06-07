@@ -81,9 +81,39 @@
   }
 }
 
+.charts-container > div {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.charts-container > div > * {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  border-radius: var(--content-border-radius);
+  padding: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.charts-container > div > *:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .card-item {
   width: 100%;
   padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-item .card {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-item .card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 </style>
 
@@ -126,23 +156,23 @@ const mostrarDetalle = (member) => {
 };
 
 const getColorValue = (colorClass) => {
-  // Map color class names to CSS color values
   const colorMap = {
-    'text-cyan-500': '#06b6d4', // Tailwind cyan-500
-    'text-green-500': '#10b981', // Tailwind green-500
-    'text-blue-500': '#3b82f6',  // Tailwind blue-500
-    'text-orange-500': '#f97316', // Tailwind orange-500
-    'text-red-500': '#ef4444',   // Tailwind red-500
-    'text-purple-500': '#a855f7', // Tailwind purple-500
-    'text-pink-500': '#ec4899',  // Tailwind pink-500
-    'text-indigo-500': '#6366f1', // Tailwind indigo-500
-    'text-yellow-500': '#eab308', // Tailwind yellow-500
-    'text-gray-500': '#6b7280',  // Tailwind gray-500
-    'text-primary': '#10b981',  // Tailwind gray-500
+    'text-cyan-500': 'var(--p-cyan-600)',
+    'text-green-500': 'var(--p-green-600)',
+    'text-blue-500': 'var(--p-blue-600)',
+    'text-orange-500': 'var(--p-orange-600)',
+    'text-red-500': 'var(--p-red-600)',
+    'text-purple-500': 'var(--p-purple-600)',
+    'text-pink-500': 'var(--p-pink-600)',
+    'text-indigo-500': 'var(--p-indigo-600)',
+    'text-yellow-500': 'var(--p-yellow-600)',
+    'text-gray-500': 'var(--text-color-secondary)',
+    'text-primary': 'var(--primary-color)',
   };
 
-  return colorMap[colorClass] || '#000000'; // Default to black if color not found
+  return colorMap[colorClass] || 'var(--text-color)';
 };
+
 
 onMounted(async () => {
   try {
