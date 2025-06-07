@@ -26,20 +26,21 @@
     </div>
 
     <div class="flex flex-wrap -mx-2 flex-grow">
-      <div v-if="dashboard" class="w-full lg:w-1/2 px-2 mb-4">
+      <div v-if="dashboard" class="w-full md:w-1/2 px-2 mb-4">
         <div class="card h-full">
           <h5>Últimos Miembros</h5>
           <LastMembers :members="dashboard.latestMembers" @ver-detalle="mostrarDetalle"/>
         </div>
       </div>
 
-      <div class="w-full lg:w-1/2 px-2 mb-4">
+      <div class="w-full md:w-1/2 px-2 mb-4">
         <div class="card h-full">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="col-span-1">
+          <h5>Gráficos</h5>
+          <div class="charts-container">
+            <div>
               <CivilStatePieChart />
             </div>
-            <div class="col-span-1">
+            <div>
               <LifeStageChart />
             </div>
           </div>
@@ -55,6 +56,23 @@
   </div>
 </template>
 
+<style scoped>
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 800px) {
+  .charts-container {
+    flex-direction: row;
+  }
+
+  .charts-container > div {
+    flex: 1;
+  }
+}
+</style>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';

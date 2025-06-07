@@ -119,7 +119,7 @@ onMounted(async () => {
 <style scoped>
 .chart-container {
   position: relative;
-  height: 300px;
+  height: 250px;
   width: 100%;
   margin: 0 auto;
 }
