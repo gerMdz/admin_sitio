@@ -6,20 +6,23 @@
     </div>
 
     <div v-if="dashboard" class="w-full mb-4">
-      <div class="flex flex-wrap -mx-2">
-        <div v-for="card in cards" :key="card.label" class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2 mb-4">
-          <div class="card h-full">
-            <div class="flex justify-between items-center mb-3">
-              <div>
-                <span class="block text-500 font-medium mb-3">{{ card.label }}</span>
-                <div class="text-900 font-medium text-xl">{{ card.value }}</div>
+      <div class="card h-full">
+        <h5>Estadísticas</h5>
+        <div class="cards-container">
+          <div v-for="card in cards" :key="card.label" class="card-item">
+            <div class="card h-full">
+              <div class="flex justify-between items-center mb-3">
+                <div>
+                  <span class="block text-500 font-medium mb-3">{{ card.label }}</span>
+                  <div class="text-900 font-medium text-xl">{{ card.value }}</div>
+                </div>
+                <div class="flex items-center justify-center bg-blue-100 rounded-full" style="width:2.5rem;height:2.5rem">
+                  <i :class="['pi', card.icon, card.color]"></i>
+                </div>
               </div>
-              <div class="flex items-center justify-center bg-blue-100 rounded-full" style="width:2.5rem;height:2.5rem">
-                <i :class="['pi', card.icon, card.color]"></i>
-              </div>
+              <span v-if="card.subtext" class="text-green-500 font-medium">{{ card.subtext }}</span>
+              <span v-if="card.note" class="text-500">{{ card.note }}</span>
             </div>
-            <span v-if="card.subtext" class="text-green-500 font-medium">{{ card.subtext }}</span>
-            <span v-if="card.note" class="text-500">{{ card.note }}</span>
           </div>
         </div>
       </div>
@@ -57,20 +60,24 @@
 </template>
 
 <style scoped>
-.charts-container {
+.charts-container, .cards-container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
 @media (min-width: 800px) {
-  .charts-container {
+  .charts-container, .cards-container {
     flex-direction: row;
   }
 
-  .charts-container > div {
+  .charts-container > div, .cards-container > div {
     flex: 1;
   }
+}
+
+.card-item {
+  width: 100%;
 }
 </style>
 
