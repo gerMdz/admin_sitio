@@ -14,14 +14,16 @@
               <div class="flex justify-between items-center mb-3">
                 <div>
                   <span class="block text-500 font-medium mb-3">{{ card.label }}</span>
-                  <div class="text-900 font-medium text-xl">{{ card.value }}</div>
                 </div>
                 <div class="flex items-center justify-center bg-blue-100 rounded-full" style="width:2.5rem;height:2.5rem">
                   <i :class="['pi', card.icon, card.color]"></i>
                 </div>
               </div>
-              <span v-if="card.subtext" class="text-green-500 font-medium">{{ card.subtext }}</span>
-              <span v-if="card.note" class="text-500">{{ card.note }}</span>
+              <div class="flex justify-end">
+                <div :class="['font-medium text-xl', card.color]">{{ card.value }} {{ card.subtext}}</div>
+              </div>
+<!--              <span v-if="card.subtext" class="text-green-500 font-medium">{{ card.subtext }}</span>-->
+<!--              <span v-if="card.note" class="text-500">{{ card.note }}</span>-->
             </div>
           </div>
         </div>
@@ -63,7 +65,7 @@
 .charts-container, .cards-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 @media (min-width: 800px) {
@@ -78,6 +80,7 @@
 
 .card-item {
   width: 100%;
+  padding: 0.5rem;
 }
 </style>
 
@@ -100,7 +103,7 @@ const cards = computed(() => {
       value: dashboard.value.totalMembers,
       icon: 'pi-users',
       color: 'text-cyan-500',
-      subtext: '',
+      subtext: 'fichas',
       note: ''
     },
     {
@@ -108,7 +111,7 @@ const cards = computed(() => {
       value: dashboard.value.completeSurveys,
       icon: 'pi-check-square',
       color: 'text-green-500',
-      subtext: '',
+      subtext: 'encuestas',
       note: ''
     }
   ];
