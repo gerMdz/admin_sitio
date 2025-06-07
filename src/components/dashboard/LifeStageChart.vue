@@ -1,13 +1,13 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import Chart from 'primevue/chart';
-import { getMembersByCivilState } from '@/services/dashboard.service.js';
+import { getMembersByLifeStage } from '@/services/dashboard.service.js';
 
-const civilStateData = ref([]);
+const lifeStageData = ref([]);
 const loading = ref(true);
 
 const chartData = computed(() => {
-  if (!civilStateData.value || civilStateData.value.length === 0) {
+  if (!lifeStageData.value || lifeStageData.value.length === 0) {
     return {
       labels: [],
       datasets: [
@@ -19,12 +19,12 @@ const chartData = computed(() => {
     };
   }
 
-  // Extract labels and data from the civil state data
-  const labels = civilStateData.value.map(item => item.name);
-  const data = civilStateData.value.map(item => item.count);
+  // Extract labels and data from the life stage data
+  const labels = lifeStageData.value.map(item => item.name);
+  const data = lifeStageData.value.map(item => item.count);
 
   // Generate colors for each segment
-  const backgroundColors = generateColors(civilStateData.value.length);
+  const backgroundColors = generateColors(lifeStageData.value.length);
 
   return {
     labels,
@@ -92,9 +92,9 @@ function generateColors(count) {
 
 onMounted(async () => {
   try {
-    civilStateData.value = await getMembersByCivilState();
+    lifeStageData.value = await getMembersByLifeStage();
   } catch (error) {
-    console.error('Error al obtener estados civiles:', error);
+    console.error('Error al obtener etapas de vida:', error);
   } finally {
     loading.value = false;
   }
@@ -103,11 +103,11 @@ onMounted(async () => {
 
 <template>
   <div class="card">
-    <h5>Distribución por Estado Civil</h5>
+    <h5>Distribución por Etapa de Vida</h5>
     <div v-if="loading" class="flex justify-center items-center p-4">
       <i class="pi pi-spin pi-spinner" style="font-size: 2rem;"></i>
     </div>
-    <div v-else-if="civilStateData.length === 0" class="p-4 text-center text-gray-500">
+    <div v-else-if="lifeStageData.length === 0" class="p-4 text-center text-gray-500">
       No hay datos disponibles
     </div>
     <div v-else class="chart-container">

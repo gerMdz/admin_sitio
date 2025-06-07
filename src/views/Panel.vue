@@ -40,10 +40,7 @@
               <CivilStatePieChart />
             </div>
             <div class="col-span-1">
-              <!-- Placeholder for Gender Chart -->
-              <div class="flex justify-center items-center h-full">
-                <p class="text-gray-500">Próximamente: Gráfico por Sexo</p>
-              </div>
+              <LifeStageChart />
             </div>
           </div>
         </div>
@@ -64,6 +61,7 @@ import { ref, computed, onMounted } from 'vue';
 import { getDashboardData } from '@/services/dashboard.service.js';
 import LastMembers from '@/components/dashboard/LastMembers.vue';
 import CivilStatePieChart from '@/components/dashboard/CivilStatePieChart.vue';
+import LifeStageChart from '@/components/dashboard/LifeStageChart.vue';
 
 const dashboard = ref(null);
 const isLoading = ref(true);
