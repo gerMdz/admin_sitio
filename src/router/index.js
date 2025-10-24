@@ -35,6 +35,11 @@ const routes = [{path: '/', redirect: '/login'}, {path: '/login', name: 'Login',
       component: () => import('../views/Experiences.vue'),
       meta: {requiresAuth: true}
     }, {
+      path: '/categories',
+      name: 'Categories',
+      component: () => import('../views/Categories.vue'),
+      meta: {requiresAuth: true}
+    }, {
       path: '/family', name: 'Family',
       component: () => import('../views/Family.vue'),
       meta: {requiresAuth: true}

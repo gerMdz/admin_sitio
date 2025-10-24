@@ -41,6 +41,7 @@ const model = ref([
       {label: 'Estados Civiles', icon: IconUserPlus, to: '/civil-states', iconType: 'component'},
       {label: 'Disfrutes', icon: HeartHandshake, to: '/enjoys', iconType: 'component'},
       {label: 'Experiencias Completadas', icon: ListChecks, to: '/experiences', iconType: 'component'},
+      {label: 'Categorías', icon: IconListCheck, to: '/categories', iconType: 'component'},
       {label: '¿Con quién vives?', icon: Users, to: '/family', iconType: 'component'},
       {label: 'Sexo', icon: 'pi pi-user', to: '/gender'},
       {label: 'Áreas de Interés', icon: Heart, to: '/interests', iconType: 'component'},
