@@ -1,4 +1,4 @@
-import api from '@/api/axios.js'; // usa tu instancia de axios configurada
+import api from '@/api/axios.js';
 
 const endpoint = '/needs';
 

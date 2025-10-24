@@ -31,3 +31,10 @@ coverage
 /.env
 /CheckList.md
 /examples/
+/.editorconfig
+/.env.development
+/.env.production
+/cert/
+/docs/tasks.md
+/docs/completed_tasks.md
+/docs/

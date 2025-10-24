@@ -5,37 +5,38 @@
       <div class="flex align-items-center gap-2">
         <InputSwitch v-model="verTodos"/>
         <span>{{ verTodos ? 'Mostrar todos' : 'Mostrar activos' }}</span>
-<!--        <Button label="Nueva Relación" icon="pi pi-plus" class="p-button-success ml-3" @click="nuevaRelacion"/>-->
+        <!--        <Button label="Nueva Relación" icon="pi pi-plus" class="p-button-success ml-3" @click="nuevaRelacion"/>-->
       </div>
     </div>
 
     <div class="flex gap-3 mb-3">
       <AutoComplete
-          v-model="filtroMember"
-          :suggestions="sugerenciasMember"
-          @complete="buscarMember"
-          field="label"
-          placeholder="Miembro"
-          class="w-30rem"
+        v-model="filtroMember"
+        :suggestions="sugerenciasMember"
+        @complete="buscarMember"
+        field="label"
+        placeholder="Miembro"
+        class="w-30rem"
       />
 
       <AutoComplete
-          v-model="filtroRelated"
-          :suggestions="sugerenciasRelated"
-          @complete="buscarRelated"
-          field="label"
-          placeholder="Familiar"
-          class="w-30rem"
+        v-model="filtroRelated"
+        :suggestions="sugerenciasRelated"
+        @complete="buscarRelated"
+        field="label"
+        placeholder="Familiar"
+        class="w-30rem"
       />
 
     </div>
 
     <DataTable
-        :value="relacionesFiltradas"
-        :paginator="true"
-        :rows="10"
-        dataKey="id"
-        responsiveLayout="scroll"
+      :value="relacionesFiltradas"
+      paginator
+      :rows="10"
+      :rowsPerPageOptions="[10, 20, 50]"
+      dataKey="id"
+      responsiveLayout="scroll"
     >
       <Column header="Miembro">
         <template #body="slotProps">
@@ -77,8 +78,10 @@
 
     <Dialog v-model:visible="mostrarDetalle" header="Detalle de Relación Familiar" modal class="w-50rem">
       <div v-if="relacionSeleccionada">
-        <p><strong>Miembro:</strong> {{ relacionSeleccionada.member?.name }} {{ relacionSeleccionada.member?.lastname }}</p>
-        <p><strong></strong> {{ relacionSeleccionada.related_member?.name }} {{ relacionSeleccionada.related_member?.lastname }}</p>
+        <p><strong>Miembro:</strong> {{ relacionSeleccionada.member?.name }} {{ relacionSeleccionada.member?.lastname }}
+        </p>
+        <p><strong></strong> {{ relacionSeleccionada.related_member?.name }}
+          {{ relacionSeleccionada.related_member?.lastname }}</p>
 
 
       </div>
@@ -86,11 +89,11 @@
 
     <!-- Formulario -->
     <FormMemberFamily
-        v-model:visible="mostrarFormulario"
-        :modelo="relacionSeleccionada"
-        :titulo="relacionSeleccionada ? 'Editar Relación' : 'Nueva Relación'"
-        @actualizado="recargarListado"
-        @cerrar="mostrarFormulario = false"
+      v-model:visible="mostrarFormulario"
+      :modelo="relacionSeleccionada"
+      :titulo="relacionSeleccionada ? 'Editar Relación' : 'Nueva Relación'"
+      @actualizado="recargarListado"
+      @cerrar="mostrarFormulario = false"
     />
   </div>
 
@@ -144,7 +147,7 @@ async function buscarRelated(event) {
 function editar(relacion) {
   relacionSeleccionada.value = {
     ...relacion,
-    family: { id: relacion.family_id, label: relacion.family },
+    family: {id: relacion.family_id, label: relacion.family},
     member: relacion.member, // ya es un objeto { id, ... }
     related: relacion.related_member ?? null
   }
@@ -171,11 +174,10 @@ const relacionesFiltradas = computed(() => {
   return relaciones.value.filter(r => {
     const esActivo = r.audiAction === null || r.audiAction === 'I'
     return (verTodos.value || esActivo) &&
-        (!filtroMember.value || r.member?.id === filtroMember.value.id) &&
-        (!filtroRelated.value || r.related_member?.id === filtroRelated.value.id)
+      (!filtroMember.value || r.member?.id === filtroMember.value.id) &&
+      (!filtroRelated.value || r.related_member?.id === filtroRelated.value.id)
   })
 })
-
 
 
 function verDetalle(relacion) {

@@ -38,7 +38,14 @@
 
     </div>
 
-    <DataTable :value="filtrados" responsiveLayout="scroll">
+    <DataTable
+        :value="filtrados"
+        paginator
+        :rows="10"
+        :rowsPerPageOptions="[10, 20, 50]"
+        responsiveLayout="scroll"
+    >
+
       <Column header="Miembro">
         <template #body="slotProps">
           {{ nombreConDni(slotProps.data.member) }}
@@ -55,24 +62,25 @@
       <Column header="Acciones">
         <template #body="slotProps">
           <Button
+
               icon="pi pi-eye"
               class="p-button-text"
-              v-tooltip.top.delay="300"
-              v-tooltip="'Ver detalle'"
+              v-tooltip="{ value: 'Ver detalles del registro', position: 'top', showDelay: 300 }"
               @click="verDetalle(slotProps.data)"
           />
           <Button
+
               icon="pi pi-pencil"
               class="p-button-text"
-              v-tooltip.top.delay="300"
-              v-tooltip="'Editar'"
+              v-tooltip="{ value: 'Editar registro', position: 'top', showDelay: 300 }"
               @click="editar(slotProps.data)"
           />
           <Button
+
               icon="pi pi-trash"
               class="p-button-text p-button-sm p-button-danger"
-              v-tooltip.top.delay="300"
-              v-tooltip="'Eliminar'"
+
+              v-tooltip="{ value: 'Borrar el registro', position: 'top', showDelay: 300 }"
               @click="confirmarEliminacion(slotProps.data)"
           />
 
