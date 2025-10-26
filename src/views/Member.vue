@@ -16,6 +16,15 @@
       <InputText v-model="filtroApellido" placeholder="Filtrar por apellido" class="w-15rem"/>
       <InputText v-model="filtroDni" placeholder="Filtrar por DNI" class="w-15rem"/>
       <InputText v-model="filtroEmail" placeholder="Filtrar por email" class="w-15rem"/>
+      <Dropdown
+        v-model="filtroCategoria"
+        :options="opcionesCategoriaFiltro"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Filtrar por categoría"
+        class="w-18rem"
+        :showClear="true"
+      />
       <Button icon="pi pi-times" label="Limpiar" class="p-button-secondary p-button-sm" @click="limpiarFiltros"/>
 
     </div>
@@ -44,7 +53,7 @@
           }}
         </template>
       </Column>
-
+      <Column field="category" header="Categoría" sortable/>
 
       <Column header="Estado">
         <template #body="slotProps">
@@ -262,6 +271,12 @@
               <Dropdown id="civilStateId" v-model="miembroActual.civil_state_id" :options="civilStates" optionLabel="name" optionValue="id" placeholder="Seleccione un estado civil" :showClear="true"/>
             </div>
           </div>
+          <div class="col-6">
+            <div class="field">
+              <label for="categoryId">Categoría</label>
+              <Dropdown id="categoryId" v-model="miembroActual.category_id" :options="categories" optionLabel="nombre" optionValue="id" placeholder="Seleccione una categoría" :showClear="true"/>
+            </div>
+          </div>
         </div>
       </div>
       <template #footer>
@@ -281,6 +296,7 @@ import {useFiltrarActivos} from '@/composables/useFiltrarActivos';
 import api from '@/api/axios';
 import {getGenders} from '@/services/genderService.service';
 import {getCivilStates} from '@/services/civilStateService.service';
+import { getCategories } from '@/services/categoryService.service';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Dialog from 'primevue/dialog';
@@ -331,8 +347,18 @@ export default {
     const filtroApellido = ref('');
     const filtroDni = ref('');
     const filtroEmail = ref('');
+    const filtroCategoria = ref(null);
     const genders = ref([]);
     const civilStates = ref([]);
+    const categories = ref([]);
+
+    const opcionesCategoriaFiltro = computed(() => {
+      const opts = categories.value.map(c => ({ label: c.nombre, value: String(c.id) }))
+      return [
+        { label: 'Sin categoría', value: 'none' },
+        ...opts
+      ]
+    });
 
     const opcionesCelebracion = ref([
       { label: 'Presencial', value: 'presencial' },
@@ -352,7 +378,10 @@ export default {
         const coincideApellido = !filtroApellido.value || m.lastname?.toLowerCase().includes(filtroApellido.value.toLowerCase());
         const coincideDni = !filtroDni.value || m.dniDocument?.includes(filtroDni.value);
         const coincideEmail = !filtroEmail.value || m.email?.toLowerCase().includes(filtroEmail.value.toLowerCase());
-        return activo && coincideNombre && coincideApellido && coincideDni && coincideEmail;
+        const coincideCategoria = !filtroCategoria.value
+          || (filtroCategoria.value === 'none' && (m.categoryId === null || m.categoryId === undefined || m.categoryId === '' ))
+          || (String(m.categoryId) === String(filtroCategoria.value));
+        return activo && coincideNombre && coincideApellido && coincideDni && coincideEmail && coincideCategoria;
       });
     });
 
@@ -389,7 +418,8 @@ export default {
         grupo: '',
         participate_gp: '',
         gender_id: null,
-        civil_state_id: null
+        civil_state_id: null,
+        category_id: null
       };
       dialogVisible.value = true;
     };
@@ -414,7 +444,8 @@ export default {
         grupo: miembro.grupo,
         participate_gp: miembro.participateGp,
         gender_id: miembro.genderId,
-        civil_state_id: miembro.civilStateId
+        civil_state_id: miembro.civilStateId,
+        category_id: miembro.categoryId ?? null
       };
       dialogVisible.value = true;
     };
@@ -424,6 +455,7 @@ export default {
       filtroApellido.value = '';
       filtroDni.value = '';
       filtroEmail.value = '';
+      filtroCategoria.value = null;
     };
 
 
@@ -457,6 +489,7 @@ export default {
         participateGp: miembroActual.value.participate_gp,
         genderId: miembroActual.value.gender_id,
         civilStateId: miembroActual.value.civil_state_id,
+        categoryId: miembroActual.value.category_id ?? null,
         audi_user: auditId,
         audi_date: new Date().toISOString().slice(0, 19).replace('T', ' '),
         audi_action: miembroActual.value.id ? 'U' : 'I',
@@ -556,10 +589,21 @@ export default {
       }
     };
 
+    const cargarCategorias = async () => {
+      try {
+        const data = await getCategories({ activo: 'true' });
+        categories.value = Array.isArray(data) ? data : [];
+      } catch (error) {
+        console.error('Error cargando categorías', error);
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Error al cargar categorías.', life: 3000 });
+      }
+    };
+
     onMounted(async () => {
       await cargarMiembros();
       await cargarGenders();
       await cargarCivilStates();
+      await cargarCategorias();
     });
 
     return {
@@ -582,12 +626,15 @@ export default {
       filtroDni,
       filtroEmail,
       filtroNombre,
+      filtroCategoria,
+      opcionesCategoriaFiltro,
       limpiarFiltros,
       estadoClase,
       opcionesCelebracion,
       opcionesSiNo,
       genders,
-      civilStates
+      civilStates,
+      categories
     };
   },
 };
